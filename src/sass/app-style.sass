@@ -1,0 +1,42 @@
+body
+  margin: 0
+
+.clearfix:after
+	visibility: hidden
+	display: block
+	font-size: 0
+	content: " "
+	clear: both
+	height: 0
+
+* html .clearfix
+  zoom: 1
+
+*:first-child+html .clearfix
+  zoom: 1
+
+.unauth-menu
+  list-style: none
+  padding: 0
+  margin: 1em
+  float: right
+
+  li
+    display: inline-block
+    margin-right: 10px
+
+    a
+      text-transform: uppercase
+      font-family: Lato, sans-serif
+      padding: 10px 15px
+      text-decoration: none
+      color: #4CAF50
+      font-weight: bold
+
+      &:hover, &:focus
+        color: #43A047
+        background-color: #E8F5E9
+        transition: background-color 1s
+
+    &:last-child
+      margin-right: 0
