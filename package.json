@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/NeckersBOX/book-trading-club/issues"
   },
-  "homepage": "https://github.com/NeckersBOX/book-trading-club#readme"
+  "homepage": "https://github.com/NeckersBOX/book-trading-club#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
 }
