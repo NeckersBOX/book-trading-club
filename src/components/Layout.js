@@ -13,7 +13,21 @@ const Layout = React.createClass ({
           </ul>
         </div>
 
-        {this.props.children}
+        <div className="text-center">
+          <div className="inline-block">
+            <div className="left-side">
+              <img src="images/book-trading-club.png" alt="Book Trading Club Logo" />
+              <h1>Book Trading Club</h1>
+
+              <p>Welcome in the <em>Book Trading Club</em>! Here you can add your books and trading them with all the others books from our users.</p>
+              <p>To start this experience <Link to="/signup">Sign Up</Link> or <Link to="/login">Login</Link></p>
+            </div>
+            <div className="right-side">
+              {this.props.children}
+            </div>
+            <div className="bookmark"></div>
+          </div>
+        </div>
       </div>
     );
   }

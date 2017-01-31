@@ -25491,12 +25491,17 @@
 
 	var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
+	var _SignUpPage = __webpack_require__(225);
+
+	var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var routes = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _Layout2.default },
 	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFoundPage2.default })
 	);
 
@@ -25561,7 +25566,57 @@
 	          )
 	        )
 	      ),
-	      this.props.children
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'text-center' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'inline-block' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left-side' },
+	            _react2.default.createElement('img', { src: 'images/book-trading-club.png', alt: 'Book Trading Club Logo' }),
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              'Book Trading Club'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Welcome in the ',
+	              _react2.default.createElement(
+	                'em',
+	                null,
+	                'Book Trading Club'
+	              ),
+	              '! Here you can add your books and trading them with all the others books from our users.'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'To start this experience ',
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'Sign Up'
+	              ),
+	              ' or ',
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'Login'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'right-side' },
+	            this.props.children
+	          ),
+	          _react2.default.createElement('div', { className: 'bookmark' })
+	        )
+	      )
 	    );
 	  }
 	});
@@ -25572,7 +25627,7 @@
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25582,92 +25637,50 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(166);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var IndexPage = _react2.default.createClass({
-	  displayName: 'IndexPage',
+	  displayName: "IndexPage",
 	  render: function render() {
 	    return _react2.default.createElement(
-	      'div',
-	      { className: 'text-center' },
+	      "div",
+	      null,
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'inline-block' },
+	        "small",
+	        { className: "page-title" },
+	        "Home"
+	      ),
+	      _react2.default.createElement(
+	        "h2",
+	        null,
+	        "Why this?"
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        null,
+	        "This application was build as project for freeCodeCamp, an other big awesome project where you can learn or improve your web-oriented programming skills."
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        null,
+	        "This app code was written by ",
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'left-side' },
-	          _react2.default.createElement('img', { src: 'images/book-trading-club.png', alt: 'Book Trading Club Logo' }),
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Book Trading Club'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Welcome in the ',
-	            _react2.default.createElement(
-	              'em',
-	              null,
-	              'Book Trading Club'
-	            ),
-	            '! Here you can add your books and trading them with all the others books from our users.'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'To start this experience ',
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/signup' },
-	              'Sign Up'
-	            ),
-	            ' or ',
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/login' },
-	              'Login'
-	            )
-	          )
+	          "a",
+	          { href: "http://neckersbox.eu" },
+	          "Davide Francesco Merico"
 	        ),
+	        " and can be found on ",
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'right-side' },
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Why this?'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'This application was build as project for freeCodeCamp, an other big awesome project where you can learn or improve your web-oriented programming skills.'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'This app code was written by ',
-	            _react2.default.createElement(
-	              'a',
-	              { href: 'http://neckersbox.eu' },
-	              'Davide Francesco Merico'
-	            ),
-	            ' and can be found on ',
-	            _react2.default.createElement(
-	              'a',
-	              { href: 'https://github.com/NeckersBOX/book-trading-club/tree/master/src' },
-	              'GitHub'
-	            ),
-	            '.'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Thank you for your interests and feedback! Have a good day!'
-	          )
-	        )
+	          "a",
+	          { href: "https://github.com/NeckersBOX/book-trading-club/tree/master/src" },
+	          "GitHub"
+	        ),
+	        "."
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        null,
+	        "Thank you for your interests and feedback! Have a good day!"
 	      )
 	    );
 	  }
@@ -25679,7 +25692,7 @@
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25692,17 +25705,138 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var NotFoundPage = _react2.default.createClass({
-	  displayName: 'NotFoundPage',
+	  displayName: "NotFoundPage",
 	  render: function render() {
 	    return _react2.default.createElement(
-	      'h1',
+	      "div",
 	      null,
-	      'Not Found Page'
+	      _react2.default.createElement(
+	        "small",
+	        { className: "page-title" },
+	        "404"
+	      ),
+	      _react2.default.createElement(
+	        "h2",
+	        null,
+	        "Not Found Page"
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        null,
+	        "Sorry but this page doesn't exists"
+	      )
 	    );
 	  }
 	});
 
 	exports.default = NotFoundPage;
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var SignUpPage = _react2.default.createClass({
+	  displayName: 'SignUpPage',
+	  getInitialState: function getInitialState() {
+	    return {
+	      username: '',
+	      usermail: '',
+	      password: '',
+	      password_confirm: '',
+	      result: null
+	    };
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'small',
+	        { className: 'page-title' },
+	        'Sign Up'
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Sign Up'
+	      ),
+	      this.state.result ? _react2.default.createElement(
+	        'p',
+	        { className: 'message' },
+	        this.state.result
+	      ) : '',
+	      _react2.default.createElement(
+	        'form',
+	        { className: 'signup-form' },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Username',
+	          _react2.default.createElement('input', { type: 'text', name: 'username',
+	            onChange: function onChange(e) {
+	              return _this.updateInfo('username', e);
+	            },
+	            value: this.state.username })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Mail',
+	          _react2.default.createElement('input', { type: 'text', name: 'usermail',
+	            onChange: function onChange(e) {
+	              return _this.updateInfo('usermail', e);
+	            },
+	            value: this.state.usermail })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Password',
+	          _react2.default.createElement('input', { type: 'password', name: 'password',
+	            onChange: function onChange(e) {
+	              return _this.updateInfo('password', e);
+	            },
+	            value: this.state.password })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Confirm Password',
+	          _react2.default.createElement('input', { type: 'password', name: 'password_confirm',
+	            onChange: function onChange(e) {
+	              return _this.updateInfo('password_confirm', e);
+	            },
+	            value: this.state.password_confirm })
+	        ),
+	        _react2.default.createElement('input', { type: 'submit', value: 'Sign Up', onClick: this.doSignUp })
+	      )
+	    );
+	  },
+	  updateInfo: function updateInfo(field, event) {
+	    this.setState(_defineProperty({}, field, event.target.value));
+	  },
+	  doSignUp: function doSignUp(e) {
+	    e.preventDefault();
+	  }
+	});
+
+	exports.default = SignUpPage;
 
 /***/ }
 /******/ ]);

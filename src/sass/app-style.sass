@@ -9,6 +9,11 @@ $primaryTextColorDark: #43a047
 $linkColor: #F0F4C3
 $linkHoverColor: #E6EE9C
 
+$pageTitleColor: #95d097
+
+$accentBgColor: #1B5E20
+$accentBgColorLight: #33691E
+
 body
   margin: 0
 
@@ -54,10 +59,11 @@ body
 .left-side, .right-side
   width: 250px
   display: inline-block
-  height: 320px
+  height: 350px
   overflow-y: auto
   padding: 15px
   font-family: Lato, sans-serif
+  zoom: 1.5
 
   h1, h2
     color: $primaryTextColor
@@ -85,6 +91,10 @@ body
   background-color: $primaryBgColorLight
   border-radius: 15px 0 0 15px
 
+  img
+    width: 96px
+    height: 96px
+
 .right-side
   background-color: $primaryBgColorDark
   border-radius: 0 15px 15px 0
@@ -95,12 +105,59 @@ body
 .inline-block
   display: inline-block
 
+.page-title
+  float: right
+  margin-top: -25px
+  color: $pageTitleColor
+  text-transform: uppercase
+  cursor: default
+
+.bookmark
+  border: 15px solid $accentBgColorLight
+  width: 0
+  height: 17px
+  border-bottom-color: transparent
+  margin-left: 300px
+  cursor: move
+  zoom: 1.5
+
+  &:hover, &:focus
+    border-color: $accentBgColor $accentBgColor transparent $accentBgColor
+    transition: border-color 2s
+
+.signup-form
+  font-family: Lato, sans-serif
+  color: $primaryTextColor
+
+  input
+    display: block
+    width: 100%
+    border-width: 0
+    padding: 4px
+    margin: 4px 0
+    font-family: Lato, sans-serif
+
+  input[type="submit"]
+    background-color: $accentBgColor
+    cursor: pointer
+    color: $primaryTextColor
+
+    &:hover, &:focus
+      background-color: $accentBgColorLight
+
+@media screen and (max-width: 850px)
+  .left-side, .right-side, .bookmark
+    zoom: 1
+
 @media screen and (max-width: 600px)
   .left-side, .right-side
     display: block
-    
+
   .left-side
     border-radius: 15px 15px 0 0
 
   .right-side
     border-radius: 0 0 15px 15px
+
+  .bookmark
+    margin-left: 100px
