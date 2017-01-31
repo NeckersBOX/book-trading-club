@@ -5,7 +5,7 @@ const Layout = React.createClass ({
   render () {
     return (
       <div>
-        <div className="clearfix">
+        <div className="text-center">
           <ul className="unauth-menu">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/signup">Sign Up</Link></li>
