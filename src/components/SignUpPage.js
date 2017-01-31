@@ -1,4 +1,5 @@
 import React from 'react';
+import { validateSignup, postRequest } from '../common'
 
 const SignUpPage = React.createClass ({
   getInitialState () {
@@ -28,8 +29,8 @@ const SignUpPage = React.createClass ({
           </label>
 
           <label>
-            Mail
-            <input type="text" name="usermail"
+            Email
+            <input type="email" name="usermail"
               onChange={(e) => this.updateInfo ('usermail', e)}
               value={this.state.usermail} />
           </label>
@@ -59,6 +60,27 @@ const SignUpPage = React.createClass ({
   doSignUp (e) {
     e.preventDefault ();
 
+    let res = validateSignup (this.state);
+    if ( res )
+      this.setState ({ result: res });
+    else {
+      this.setState ({ result: 'Loading..' });
+
+      postRequest ('/api/signup', this.state, res => {
+        if ( res.error ) {
+          this.setState ({ result: res.error });
+          return;
+        }
+
+        this.setState ({
+          username: '',
+          usermail: '',
+          password: '',
+          password_confirm: '',
+          result: 'Sign up completed!'
+        });
+      });
+    }
   }
 });
 

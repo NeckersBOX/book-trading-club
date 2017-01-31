@@ -25745,6 +25745,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _common = __webpack_require__(226);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -25797,8 +25799,8 @@
 	        _react2.default.createElement(
 	          'label',
 	          null,
-	          'Mail',
-	          _react2.default.createElement('input', { type: 'text', name: 'usermail',
+	          'Email',
+	          _react2.default.createElement('input', { type: 'email', name: 'usermail',
 	            onChange: function onChange(e) {
 	              return _this.updateInfo('usermail', e);
 	            },
@@ -25832,11 +25834,79 @@
 	    this.setState(_defineProperty({}, field, event.target.value));
 	  },
 	  doSignUp: function doSignUp(e) {
+	    var _this2 = this;
+
 	    e.preventDefault();
+
+	    var res = (0, _common.validateSignup)(this.state);
+	    if (res) this.setState({ result: res });else {
+	      this.setState({ result: 'Loading..' });
+
+	      (0, _common.postRequest)('/api/signup', this.state, function (res) {
+	        if (res.error) {
+	          _this2.setState({ result: res.error });
+	          return;
+	        }
+
+	        _this2.setState({
+	          username: '',
+	          usermail: '',
+	          password: '',
+	          password_confirm: '',
+	          result: 'Sign up completed!'
+	        });
+	      });
+	    }
 	  }
 	});
 
 	exports.default = SignUpPage;
+
+/***/ },
+/* 226 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var validateSignup = exports.validateSignup = function validateSignup(data) {
+	  if (data.username.trim().length < 6) return 'Username length have to be more than 6 chars.';
+
+	  if (!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(data.usermail)) return 'Email not valid. Please try again.';
+
+	  if (data.password.length < 8) return 'Password length have to be more than 8 chars.';
+
+	  if (data.password != data.password_confirm) return 'Password confirm is different from the first one';
+
+	  return false;
+	};
+
+	var postRequest = exports.postRequest = function postRequest(url, data, callback) {
+	  var request = new XMLHttpRequest();
+	  request.open('POST', url, true);
+	  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+	  request.onload = function () {
+	    if (request.status != 200) return callback({ error: request.status + ' ' + request.statusText });
+
+	    callback(JSON.parse(request.responseText));
+	  };
+
+	  request.onerror = function () {
+	    return console.error('POST ' + url + '. Request failed.');
+	  };
+
+	  var postData = [];
+	  for (var key in data) {
+	    if (!data.hasOwnProperty(key)) continue;
+
+	    postData.push(key + '=' + data[key]);
+	  }
+
+	  request.send(postData.join('&'));
+	};
 
 /***/ }
 /******/ ]);
