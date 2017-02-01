@@ -30,11 +30,24 @@
   },
   "devDependencies": {
     "babel-loader": "^6.2.10",
+    "eslint": "^3.14.1",
+    "eslint-plugin-react": "^6.9.0",
     "gulp": "^3.9.1",
     "gulp-minify": "0.0.14",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "webpack": "^1.14.0",
     "webpack-stream": "^3.2.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [ "eslint-plugin-react" ]
   }
 }
