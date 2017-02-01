@@ -25517,6 +25517,8 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -25525,101 +25527,119 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Layout = _react2.default.createClass({
-	  displayName: 'Layout',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Layout = function (_React$Component) {
+	  _inherits(Layout, _React$Component);
+
+	  function Layout(props) {
+	    _classCallCheck(this, Layout);
+
+	    return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+	  }
+
+	  _createClass(Layout, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
 	        'div',
-	        { className: 'text-center' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'unauth-menu' },
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/' },
-	              'Home'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/signup' },
-	              'Sign Up'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/login' },
-	              'Login'
-	            )
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'text-center' },
+	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'inline-block' },
+	          { className: 'text-center' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'left-side' },
-	            _react2.default.createElement('img', { src: 'images/book-trading-club.png', alt: 'Book Trading Club Logo' }),
+	            'ul',
+	            { className: 'unauth-menu' },
 	            _react2.default.createElement(
-	              'h1',
+	              'li',
 	              null,
-	              'Book Trading Club'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Welcome in the ',
 	              _react2.default.createElement(
-	                'em',
-	                null,
-	                'Book Trading Club'
-	              ),
-	              '! Here you can add your books and trading them with all the others books from our users.'
+	                _reactRouter.Link,
+	                { to: '/' },
+	                'Home'
+	              )
 	            ),
 	            _react2.default.createElement(
-	              'p',
+	              'li',
 	              null,
-	              'To start this experience ',
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/signup' },
 	                'Sign Up'
-	              ),
-	              ' or ',
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/login' },
 	                'Login'
 	              )
 	            )
-	          ),
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-center' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'right-side' },
-	            this.props.children
-	          ),
-	          _react2.default.createElement('div', { className: 'bookmark' })
+	            { className: 'inline-block' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'left-side' },
+	              _react2.default.createElement('img', { src: 'images/book-trading-club.png', alt: 'Book Trading Club Logo' }),
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Book Trading Club'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'Welcome in the ',
+	                _react2.default.createElement(
+	                  'em',
+	                  null,
+	                  'Book Trading Club'
+	                ),
+	                '! Here you can add your books and trading them with all the others books from our users.'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'To start this experience ',
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/signup' },
+	                  'Sign Up'
+	                ),
+	                ' or ',
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/login' },
+	                  'Login'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'right-side' },
+	              this.props.children
+	            ),
+	            _react2.default.createElement('div', { className: 'bookmark' })
+	          )
 	        )
-	      )
-	    );
-	  }
-	});
+	      );
+	    }
+	  }]);
+
+	  return Layout;
+	}(_react2.default.Component);
 
 	exports.default = Layout;
 
@@ -25639,52 +25659,49 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var IndexPage = _react2.default.createClass({
-	  displayName: "IndexPage",
-	  render: function render() {
-	    return _react2.default.createElement(
-	      "div",
+	var IndexPage = function IndexPage(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "small",
+	      { className: "page-title" },
+	      "Home"
+	    ),
+	    _react2.default.createElement(
+	      "h2",
 	      null,
+	      "Why this?"
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "This application was build as project for freeCodeCamp, an other big awesome project where you can learn or improve your web-oriented programming skills."
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "This app code was written by ",
 	      _react2.default.createElement(
-	        "small",
-	        { className: "page-title" },
-	        "Home"
+	        "a",
+	        { href: "http://neckersbox.eu" },
+	        "Davide Francesco Merico"
 	      ),
+	      " and can be found on ",
 	      _react2.default.createElement(
-	        "h2",
-	        null,
-	        "Why this?"
+	        "a",
+	        { href: "https://github.com/NeckersBOX/book-trading-club/tree/master/src" },
+	        "GitHub"
 	      ),
-	      _react2.default.createElement(
-	        "p",
-	        null,
-	        "This application was build as project for freeCodeCamp, an other big awesome project where you can learn or improve your web-oriented programming skills."
-	      ),
-	      _react2.default.createElement(
-	        "p",
-	        null,
-	        "This app code was written by ",
-	        _react2.default.createElement(
-	          "a",
-	          { href: "http://neckersbox.eu" },
-	          "Davide Francesco Merico"
-	        ),
-	        " and can be found on ",
-	        _react2.default.createElement(
-	          "a",
-	          { href: "https://github.com/NeckersBOX/book-trading-club/tree/master/src" },
-	          "GitHub"
-	        ),
-	        "."
-	      ),
-	      _react2.default.createElement(
-	        "p",
-	        null,
-	        "Thank you for your interests and feedback! Have a good day!"
-	      )
-	    );
-	  }
-	});
+	      "."
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Thank you for your interests and feedback! Have a good day!"
+	    )
+	  );
+	};
 
 	exports.default = IndexPage;
 
@@ -25704,30 +25721,27 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var NotFoundPage = _react2.default.createClass({
-	  displayName: "NotFoundPage",
-	  render: function render() {
-	    return _react2.default.createElement(
-	      "div",
+	var NotFoundPage = function NotFoundPage(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "small",
+	      { className: "page-title" },
+	      "404"
+	    ),
+	    _react2.default.createElement(
+	      "h2",
 	      null,
-	      _react2.default.createElement(
-	        "small",
-	        { className: "page-title" },
-	        "404"
-	      ),
-	      _react2.default.createElement(
-	        "h2",
-	        null,
-	        "Not Found Page"
-	      ),
-	      _react2.default.createElement(
-	        "p",
-	        null,
-	        "Sorry but this page doesn't exists"
-	      )
-	    );
-	  }
-	});
+	      "Not Found Page"
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Sorry but this page doesn't exists"
+	    )
+	  );
+	};
 
 	exports.default = NotFoundPage;
 
@@ -25741,6 +25755,8 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -25751,114 +25767,136 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var SignUpPage = _react2.default.createClass({
-	  displayName: 'SignUpPage',
-	  getInitialState: function getInitialState() {
-	    return {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SignUpPage = function (_React$Component) {
+	  _inherits(SignUpPage, _React$Component);
+
+	  function SignUpPage(props) {
+	    _classCallCheck(this, SignUpPage);
+
+	    var _this = _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props));
+
+	    _this.state = {
 	      username: '',
 	      usermail: '',
 	      password: '',
 	      password_confirm: '',
 	      result: null
 	    };
-	  },
-	  render: function render() {
-	    var _this = this;
-
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'small',
-	        { className: 'page-title' },
-	        'Sign Up'
-	      ),
-	      _react2.default.createElement(
-	        'h2',
-	        null,
-	        'Sign Up'
-	      ),
-	      this.state.result ? _react2.default.createElement(
-	        'p',
-	        { className: 'message' },
-	        this.state.result
-	      ) : '',
-	      _react2.default.createElement(
-	        'form',
-	        { className: 'signup-form' },
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Username',
-	          _react2.default.createElement('input', { type: 'text', name: 'username',
-	            onChange: function onChange(e) {
-	              return _this.updateInfo('username', e);
-	            },
-	            value: this.state.username })
-	        ),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Email',
-	          _react2.default.createElement('input', { type: 'email', name: 'usermail',
-	            onChange: function onChange(e) {
-	              return _this.updateInfo('usermail', e);
-	            },
-	            value: this.state.usermail })
-	        ),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Password',
-	          _react2.default.createElement('input', { type: 'password', name: 'password',
-	            onChange: function onChange(e) {
-	              return _this.updateInfo('password', e);
-	            },
-	            value: this.state.password })
-	        ),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Confirm Password',
-	          _react2.default.createElement('input', { type: 'password', name: 'password_confirm',
-	            onChange: function onChange(e) {
-	              return _this.updateInfo('password_confirm', e);
-	            },
-	            value: this.state.password_confirm })
-	        ),
-	        _react2.default.createElement('input', { type: 'submit', value: 'Sign Up', onClick: this.doSignUp })
-	      )
-	    );
-	  },
-	  updateInfo: function updateInfo(field, event) {
-	    this.setState(_defineProperty({}, field, event.target.value));
-	  },
-	  doSignUp: function doSignUp(e) {
-	    var _this2 = this;
-
-	    e.preventDefault();
-
-	    var res = (0, _common.validateSignup)(this.state);
-	    if (res) this.setState({ result: res });else {
-	      this.setState({ result: 'Loading..' });
-
-	      (0, _common.postRequest)('/api/signup', this.state, function (res) {
-	        if (res.error) {
-	          _this2.setState({ result: res.error });
-	          return;
-	        }
-
-	        _this2.setState({
-	          username: '',
-	          usermail: '',
-	          password: '',
-	          password_confirm: '',
-	          result: 'Sign up completed!'
-	        });
-	      });
-	    }
+	    return _this;
 	  }
-	});
+
+	  _createClass(SignUpPage, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'small',
+	          { className: 'page-title' },
+	          'Sign Up'
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Sign Up'
+	        ),
+	        this.state.result ? _react2.default.createElement(
+	          'p',
+	          { className: 'message' },
+	          this.state.result
+	        ) : '',
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'signup-form' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Username',
+	            _react2.default.createElement('input', { type: 'text', name: 'username',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('username', e);
+	              },
+	              value: this.state.username })
+	          ),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Email',
+	            _react2.default.createElement('input', { type: 'email', name: 'usermail',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('usermail', e);
+	              },
+	              value: this.state.usermail })
+	          ),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Password',
+	            _react2.default.createElement('input', { type: 'password', name: 'password',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('password', e);
+	              },
+	              value: this.state.password })
+	          ),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Confirm Password',
+	            _react2.default.createElement('input', { type: 'password', name: 'password_confirm',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('password_confirm', e);
+	              },
+	              value: this.state.password_confirm })
+	          ),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Sign Up', onClick: this.doSignUp.bind(this) })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'updateInfo',
+	    value: function updateInfo(field, event) {
+	      this.setState(_defineProperty({}, field, event.target.value));
+	    }
+	  }, {
+	    key: 'doSignUp',
+	    value: function doSignUp(e) {
+	      var _this3 = this;
+
+	      e.preventDefault();
+
+	      var res = (0, _common.validateSignup)(this.state);
+	      if (res) this.setState({ result: res });else {
+	        this.setState({ result: 'Loading..' });
+
+	        (0, _common.postRequest)('/api/signup', this.state, function (res) {
+	          if (res.error) {
+	            _this3.setState({ result: res.error });
+	            return;
+	          }
+
+	          _this3.setState({
+	            username: '',
+	            usermail: '',
+	            password: '',
+	            password_confirm: '',
+	            result: 'Sign up completed!'
+	          });
+	        });
+	      }
+	    }
+	  }]);
+
+	  return SignUpPage;
+	}(_react2.default.Component);
 
 	exports.default = SignUpPage;
 

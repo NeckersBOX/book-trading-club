@@ -1,16 +1,19 @@
 import React from 'react';
 import { validateSignup, postRequest } from '../common'
 
-const SignUpPage = React.createClass ({
-  getInitialState () {
-    return {
+class SignUpPage extends React.Component {
+  constructor (props) {
+    super (props);
+
+    this.state = {
       username: '',
       usermail: '',
       password: '',
       password_confirm: '',
       result: null
     };
-  },
+  }
+
   render () {
     return (
       <div>
@@ -49,14 +52,16 @@ const SignUpPage = React.createClass ({
               value={this.state.password_confirm} />
           </label>
 
-          <input type="submit" value="Sign Up" onClick={this.doSignUp} />
+          <input type="submit" value="Sign Up" onClick={this.doSignUp.bind (this)} />
         </form>
       </div>
     );
-  },
+  }
+
   updateInfo (field, event) {
     this.setState ({ [field]: event.target.value });
-  },
+  }
+
   doSignUp (e) {
     e.preventDefault ();
 
@@ -82,6 +87,6 @@ const SignUpPage = React.createClass ({
       });
     }
   }
-});
+}
 
 export default SignUpPage;

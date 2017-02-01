@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Layout = React.createClass ({
+class Layout extends React.Component {
+  constructor (props) {
+    super (props);
+  }
+
   render () {
     return (
       <div>
@@ -31,6 +35,6 @@ const Layout = React.createClass ({
       </div>
     );
   }
-});
+}
 
 export default Layout;
