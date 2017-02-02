@@ -8,6 +8,7 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import signupAPI from './api/signup';
+import loginAPI from './api/login';
 
 const app = new Express ();
 
@@ -30,6 +31,7 @@ app.use (cookieSession ({
 }));
 
 app.post ('/api/signup', signupAPI);
+app.post ('/api/login', loginAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
