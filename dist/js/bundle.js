@@ -25495,6 +25495,10 @@
 
 	var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
+	var _LoginPage = __webpack_require__(227);
+
+	var _LoginPage2 = _interopRequireDefault(_LoginPage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var routes = _react2.default.createElement(
@@ -25502,6 +25506,7 @@
 	  { path: '/', component: _Layout2.default },
 	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPage2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFoundPage2.default })
 	);
 
@@ -25816,7 +25821,7 @@
 	        ) : '',
 	        _react2.default.createElement(
 	          'form',
-	          { className: 'signup-form' },
+	          { className: 'auth-form' },
 	          _react2.default.createElement(
 	            'label',
 	            null,
@@ -25921,6 +25926,14 @@
 	  return false;
 	};
 
+	var validateLogin = exports.validateLogin = function validateLogin(data) {
+	  if (data.username.trim().length < 6) return 'Username length have to be more than 6 chars.';
+
+	  if (data.password.length < 8) return 'Password length have to be more than 8 chars.';
+
+	  return false;
+	};
+
 	var postRequest = exports.postRequest = function postRequest(url, data, callback) {
 	  var request = new XMLHttpRequest();
 	  request.open('POST', url, true);
@@ -25945,6 +25958,129 @@
 
 	  request.send(postData.join('&'));
 	};
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _common = __webpack_require__(226);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LoginPage = function (_React$Component) {
+	  _inherits(LoginPage, _React$Component);
+
+	  function LoginPage(props) {
+	    _classCallCheck(this, LoginPage);
+
+	    var _this = _possibleConstructorReturn(this, (LoginPage.__proto__ || Object.getPrototypeOf(LoginPage)).call(this, props));
+
+	    _this.state = { username: '', password: '', result: null };
+	    return _this;
+	  }
+
+	  _createClass(LoginPage, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'small',
+	          { className: 'page-title' },
+	          'Login'
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Login'
+	        ),
+	        this.state.result ? _react2.default.createElement(
+	          'p',
+	          { className: 'message' },
+	          this.state.result
+	        ) : '',
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'auth-form' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Username',
+	            _react2.default.createElement('input', { type: 'text', name: 'username',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('username', e);
+	              },
+	              value: this.state.username })
+	          ),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Password',
+	            _react2.default.createElement('input', { type: 'password', name: 'password',
+	              onChange: function onChange(e) {
+	                return _this2.updateInfo('password', e);
+	              },
+	              value: this.state.password })
+	          ),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Login', onClick: this.doLogin.bind(this) })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'updateInfo',
+	    value: function updateInfo(field, event) {
+	      this.setState(_defineProperty({}, field, event.target.value));
+	    }
+	  }, {
+	    key: 'doLogin',
+	    value: function doLogin(e) {
+	      var _this3 = this;
+
+	      e.preventDefault();
+
+	      var res = (0, _common.validateLogin)(this.state);
+	      if (res) this.setState({ result: res });else {
+	        this.setState({ result: 'Loading..' });
+
+	        (0, _common.postRequest)('/api/login', this.state, function (res) {
+	          if (res.error) {
+	            _this3.setState({ result: res.error });
+	            return;
+	          }
+
+	          console.log('TODO: Login');
+	        });
+	      }
+	    }
+	  }]);
+
+	  return LoginPage;
+	}(_react2.default.Component);
+
+	exports.default = LoginPage;
 
 /***/ }
 /******/ ]);

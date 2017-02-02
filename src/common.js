@@ -14,6 +14,16 @@ export const validateSignup = (data) => {
   return false;
 };
 
+export const validateLogin = (data) => {
+  if ( data.username.trim ().length < 6 )
+    return 'Username length have to be more than 6 chars.';
+
+  if ( data.password.length < 8 )
+    return 'Password length have to be more than 8 chars.';
+
+  return false;
+}
+
 export const postRequest = (url, data, callback) => {
   let request = new XMLHttpRequest ();
   request.open ('POST', url, true);

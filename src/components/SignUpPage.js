@@ -23,7 +23,7 @@ class SignUpPage extends React.Component {
 
         {this.state.result ? <p className="message">{this.state.result}</p> : ''}
 
-        <form className="signup-form">
+        <form className="auth-form">
           <label>
             Username
             <input type="text" name="username"
