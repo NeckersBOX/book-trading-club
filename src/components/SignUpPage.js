@@ -15,6 +15,18 @@ class SignUpPage extends React.Component {
   }
 
   render () {
+    if ( this.props.reduxState && this.props.reduxState.auth ) {
+      return (
+        <div>
+          <small className="page-title">Sign Up</small>
+
+          <h2>No more!</h2>
+
+          <p>You are already authenticated in Book Trading Club!</p>
+        </div>
+      );
+    }
+
     return (
       <div>
         <small className="page-title">Sign Up</small>

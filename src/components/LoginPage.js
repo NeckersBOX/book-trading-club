@@ -9,6 +9,18 @@ class LoginPage extends React.Component {
   }
 
   render () {
+    if ( this.props.reduxState && this.props.reduxState.auth ) {
+      return (
+        <div>
+          <small className="page-title">Login</small>
+
+          <h2>Success!</h2>
+
+          <p>Welcome back <b>{this.props.reduxState.name}</b>!</p>
+        </div>
+      );
+    }
+
     return (
       <div>
         <small className="page-title">Login</small>
@@ -57,7 +69,10 @@ class LoginPage extends React.Component {
           return;
         }
 
-        console.log ('TODO: Login');
+        this.props.dispatch ({
+          type: 'LOGIN',
+          data: res.userInfo
+        });
       });
     }
   }

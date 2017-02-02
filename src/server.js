@@ -10,6 +10,7 @@ import routes from './routes';
 import signupAPI from './api/signup';
 import loginAPI from './api/login';
 import authAPI from './api/auth';
+import NotFoundPage from './components/NotFoundPage';
 
 const app = new Express ();
 
