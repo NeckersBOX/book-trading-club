@@ -1,16 +1,35 @@
 import Express from 'express';
 import path from 'path';
+import cookieSession from 'cookie-session';
+import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
+import signupAPI from './api/signup';
 
-let app = new Express ();
+const app = new Express ();
 
 app.set ('view engine', 'ejs');
 app.set ('views', path.join (__dirname, 'views'));
 
+app.use (bodyParser.json ());
+app.use (bodyParser.urlencoded ({ extended: true }));
+
 app.use (Express.static ('dist'));
+app.use (helmet ());
+
+app.use (cookieSession ({
+  name: 'BTCSession',
+  secret: process.env.secretCookie,
+  cookie: {
+    httpOnly: true,
+    expires: new Date (Date.now () + 6 * 60 * 60 * 1000)
+  }
+}));
+
+app.post ('/api/signup', signupAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
