@@ -26460,7 +26460,7 @@
 
 	      return _react2.default.createElement(
 	        _AuthRequest2.default,
-	        { auth: this.props.reduxState && this.props.reduxState.auth },
+	        { auth: this.props.reduxState && this.props.reduxState.auth, dispatch: this.props.dispatch },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'text-center' },
@@ -26578,6 +26578,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(166);
+
 	var _common = __webpack_require__(223);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -26606,7 +26608,14 @@
 	      var _this2 = this;
 
 	      (0, _common.postRequest)('/api/auth/check', {}, function (res) {
-	        if (res.success) _this2.setState({ auth: true });else _this2.setState({ auth: false });
+	        if (res.success) _this2.setState({ auth: true });else {
+	          _this2.setState({ auth: false });
+	          if (_this2.props.dispatch) {
+	            _this2.props.dispatch({
+	              type: 'LOGOUT'
+	            });
+	          }
+	        }
 	      });
 	    }
 	  }, {
@@ -26637,7 +26646,18 @@
 	            _react2.default.createElement(
 	              'p',
 	              null,
-	              'Sorry, this page is only for authenticated users.'
+	              'Sorry, this page is only for authenticated users. To continue ',
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'Sign Up'
+	              ),
+	              ' or ',
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'Login'
+	              )
 	            )
 	          )
 	        )
@@ -28911,7 +28931,7 @@
 	      newState = Object.assign({}, state, { auth: true }, action.data);
 	      break;
 	    case 'LOGOUT':
-	      newState = initState;
+	      newState = Object.assign({}, initState);
 	      break;
 	  }
 

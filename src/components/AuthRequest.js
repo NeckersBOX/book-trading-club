@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { postRequest } from '../common';
 
 class AuthRequest extends React.Component {
@@ -12,8 +13,14 @@ class AuthRequest extends React.Component {
     postRequest ('/api/auth/check', {}, res => {
       if ( res.success )
         this.setState ({ auth: true });
-      else
+      else {
         this.setState ({ auth: false });
+        if ( this.props.dispatch ) {
+          this.props.dispatch ({
+            type: 'LOGOUT'
+          });
+        }
+      }
     });
   }
 
@@ -28,7 +35,7 @@ class AuthRequest extends React.Component {
           <div className="login-success">
             <h2>Auth Requested</h2>
 
-            <p>Sorry, this page is only for authenticated users.</p>
+            <p>Sorry, this page is only for authenticated users. To continue <Link to="/signup">Sign Up</Link> or <Link to="/login">Login</Link></p>
           </div>
         </div>
       </div>

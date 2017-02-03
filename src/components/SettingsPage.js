@@ -17,7 +17,7 @@ class SettingsPage extends React.Component {
 
   render () {
     return (
-      <AuthRequest auth={this.props.reduxState && this.props.reduxState.auth}>
+      <AuthRequest auth={this.props.reduxState && this.props.reduxState.auth} dispatch={this.props.dispatch}>
         <div className="text-center">
           <button className="inline-block logout" onClick={this.doLogout.bind (this)}>Logout</button>
 
@@ -76,7 +76,7 @@ class SettingsPage extends React.Component {
       this.props.dispatch ({
         type: 'LOGOUT'
       });
-      
+
       this.props.router.push ('/login');
     });
   }

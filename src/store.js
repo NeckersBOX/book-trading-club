@@ -18,7 +18,7 @@ export const reducer = (state, action) => {
       newState = Object.assign ({}, state, { auth: true }, action.data);
       break;
     case 'LOGOUT':
-      newState = initState;
+      newState = Object.assign ({}, initState);
       break;
   }
 
