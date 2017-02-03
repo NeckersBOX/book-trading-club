@@ -26447,9 +26447,61 @@
 	        _AuthRequest2.default,
 	        { auth: this.props.reduxState && this.props.reduxState.auth },
 	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Hello World'
+	          'div',
+	          { className: 'text-center' },
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'inline-block logout' },
+	            'Logout'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'text-center' },
+	            _react2.default.createElement(
+	              'form',
+	              { className: 'inline-block form-settings' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'City ',
+	                _react2.default.createElement('input', { type: 'text', name: 'usercity' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'State ',
+	                _react2.default.createElement('input', { type: 'text', name: 'userstate' })
+	              ),
+	              _react2.default.createElement('input', { type: 'submit', value: 'Update Info' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'text-center' },
+	            _react2.default.createElement(
+	              'form',
+	              { className: 'inline-block form-settings' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Old password ',
+	                _react2.default.createElement('input', { type: 'password', name: 'old_password' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'New password ',
+	                _react2.default.createElement('input', { type: 'password', name: 'new_password' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Confirm password ',
+	                _react2.default.createElement('input', { type: 'password', name: 'confirm_password' })
+	              ),
+	              _react2.default.createElement('input', { type: 'submit', value: 'Change password' })
+	            )
+	          )
 	        )
 	      );
 	    }

@@ -167,13 +167,65 @@ body
     width: 96px
     height: 96px
     margin-top: 15px
-    
+
   a
     text-decoration: none
     color: $linkColor
 
     &:hover, &:focus
       color: $linkHoverColor
+
+button.logout
+  text-transform: uppercase
+  border: 1px solid $primaryBgColorDark
+  border-radius: 4px
+  padding: 8px 16px
+  font-family: Lato, sans-serif
+  cursor: pointer
+  background-color: $primaryBgColorLight
+  color: $primaryTextColor
+
+  &:hover, &:focus
+    background-color: $primaryBgColorDark
+
+.form-settings
+  border: 1px solid $primaryBgColorDark
+  border-radius: 4px
+  padding: 16px
+  margin: 16px 0
+
+  label
+    display: block
+    text-transform: uppercase
+    border-bottom: 1px solid $primaryBgColorDark
+    margin-bottom: 8px
+    color: $primaryTextColorDark
+
+    input
+      font-family: Lato, sans-serif
+      display: block
+      width: 230px
+      margin-top: 8px
+      font-size: 16px
+      padding: 4px 8px
+      border-width: 0
+      background-color: $primaryBgColor
+      border-radius: 4px 4px 0 0
+      color: $primaryTextColorDark
+
+  input[type="submit"]
+    text-transform: uppercase
+    border: 1px solid $primaryBgColorDark
+    border-radius: 4px
+    padding: 8px 16px
+    font-family: Lato, sans-serif
+    cursor: pointer
+    background-color: $primaryBgColorLight
+    color: $primaryTextColor
+    width: 100%
+    
+    &:hover, &:focus
+      background-color: $primaryBgColorDark
 
 @keyframes pickme
   0%
