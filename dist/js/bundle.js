@@ -26423,7 +26423,11 @@
 
 	var _AuthRequest2 = _interopRequireDefault(_AuthRequest);
 
+	var _common = __webpack_require__(223);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -26437,12 +26441,23 @@
 	  function SettingsPage(props) {
 	    _classCallCheck(this, SettingsPage);
 
-	    return _possibleConstructorReturn(this, (SettingsPage.__proto__ || Object.getPrototypeOf(SettingsPage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SettingsPage.__proto__ || Object.getPrototypeOf(SettingsPage)).call(this, props));
+
+	    _this.state = {
+	      usercity: '',
+	      userstate: '',
+	      old_password: '',
+	      new_password: '',
+	      confirm_password: ''
+	    };
+	    return _this;
 	  }
 
 	  _createClass(SettingsPage, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        _AuthRequest2.default,
 	        { auth: this.props.reduxState && this.props.reduxState.auth },
@@ -26451,7 +26466,7 @@
 	          { className: 'text-center' },
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'inline-block logout' },
+	            { className: 'inline-block logout', onClick: this.doLogout.bind(this) },
 	            'Logout'
 	          ),
 	          _react2.default.createElement(
@@ -26463,14 +26478,20 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'City ',
-	                _react2.default.createElement('input', { type: 'text', name: 'usercity' })
+	                'City',
+	                _react2.default.createElement('input', { type: 'text', name: 'usercity', value: this.state.usercity,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('usercity', e);
+	                  } })
 	              ),
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'State ',
-	                _react2.default.createElement('input', { type: 'text', name: 'userstate' })
+	                'State',
+	                _react2.default.createElement('input', { type: 'text', name: 'userstate', value: this.state.userstate,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('userstate', e);
+	                  } })
 	              ),
 	              _react2.default.createElement('input', { type: 'submit', value: 'Update Info' })
 	            )
@@ -26484,26 +26505,55 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'Old password ',
-	                _react2.default.createElement('input', { type: 'password', name: 'old_password' })
+	                'Old password',
+	                _react2.default.createElement('input', { type: 'password', name: 'old_password', value: this.state.old_password,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('old_password', e);
+	                  } })
 	              ),
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'New password ',
-	                _react2.default.createElement('input', { type: 'password', name: 'new_password' })
+	                'New password',
+	                _react2.default.createElement('input', { type: 'password', name: 'new_password', value: this.state.new_password,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('new_password', e);
+	                  } })
 	              ),
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'Confirm password ',
-	                _react2.default.createElement('input', { type: 'password', name: 'confirm_password' })
+	                'Confirm password',
+	                _react2.default.createElement('input', { type: 'password', name: 'confirm_password', value: this.state.confirm_password,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('confirm_password', e);
+	                  } })
 	              ),
 	              _react2.default.createElement('input', { type: 'submit', value: 'Change password' })
 	            )
 	          )
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'updateInfo',
+	    value: function updateInfo(field, event) {
+	      this.setState(_defineProperty({}, field, event.target.value));
+	    }
+	  }, {
+	    key: 'doLogout',
+	    value: function doLogout() {
+	      var _this3 = this;
+
+	      (0, _common.postRequest)('/api/auth/logout', {}, function (res) {
+	        if (res.error) return console.error(res.error);
+
+	        _this3.props.dispatch({
+	          type: 'LOGOUT'
+	        });
+
+	        _this3.props.router.push('/login');
+	      });
 	    }
 	  }]);
 
@@ -28842,21 +28892,26 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var initState = {
+	  auth: false,
+	  name: undefined,
+	  email: undefined,
+	  city: undefined,
+	  state: undefined,
+	  books: []
+	};
+
 	var reducer = exports.reducer = function reducer(state, action) {
-	  if (typeof state == 'undefined') return {
-	    auth: false,
-	    name: undefined,
-	    email: undefined,
-	    city: undefined,
-	    state: undefined,
-	    books: []
-	  };
+	  if (typeof state == 'undefined') return initState;
 
 	  var newState = state;
 
 	  switch (action.type) {
 	    case 'LOGIN':
 	      newState = Object.assign({}, state, { auth: true }, action.data);
+	      break;
+	    case 'LOGOUT':
+	      newState = initState;
 	      break;
 	  }
 

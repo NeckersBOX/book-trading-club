@@ -9,7 +9,9 @@ import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import signupAPI from './api/signup';
 import loginAPI from './api/login';
-import authAPI from './api/auth';
+import authAPI, { authCheckAPI } from './api/auth';
+import authLoginAPI from './api/authLogin';
+import authLogoutAPI from './api/authLogout';
 import NotFoundPage from './components/NotFoundPage';
 
 const app = new Express ();
@@ -35,6 +37,9 @@ app.use (cookieSession ({
 app.post ('/api/signup', signupAPI);
 app.post ('/api/login', loginAPI);
 app.post ('/api/auth/:api', authAPI);
+app.post ('/api/auth/check', authCheckAPI);
+app.post ('/api/auth/login', authLoginAPI);
+app.post ('/api/auth/logout', authLogoutAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
