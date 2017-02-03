@@ -11,8 +11,6 @@ const authAPI = (req, res, next) => {
       session: req.session.hash
     });
 
-    db.close ();
-
     if ( !doc ) {
       res.writeHead (200, { 'Content-Type': 'application/json' });
       res.end (JSON.stringify ({ error: 'User not authenticated' }));
@@ -20,10 +18,33 @@ const authAPI = (req, res, next) => {
     }
 
     if ( req.params.api == 'check' ) {
+      db.close ();
+
       res.writeHead (200, { 'Content-Type': 'application/json' });
       res.end (JSON.stringify ({ success: true }));
       return;
     }
+
+    if ( req.params.api == 'login' ) {
+      const books = yield db.collection ('btc_books').find ({ user: doc.name }).toArray ();
+
+      db.close ();
+
+      res.writeHead (200, { 'Content-Type': 'application/json' });
+      res.end (JSON.stringify ({
+        success: true,
+        userInfo: {
+          name: doc.signup_name,
+          email: doc.email,
+          city: doc.city,
+          state: doc.state,
+          books
+        }
+      }));
+      return;
+    }
+
+    db.close ();
 
     if ( authAPIList.indexOf (req.params.api) == -1 ) {
       res.writeHead (404, { 'Content-Type': 'application/json' });

@@ -5,12 +5,14 @@ import IndexPage    from './components/IndexPage';
 import NotFoundPage from './components/NotFoundPage';
 import SignUpPage   from './components/SignUpPage';
 import LoginPage    from './components/LoginPage';
+import SettingsPage from './components/SettingsPage';
 
 const routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={IndexPage} />
     <Route path="signup" component={SignUpPage} />
     <Route path="login" component={LoginPage} />
+    <Route path="settings" component={SettingsPage} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );

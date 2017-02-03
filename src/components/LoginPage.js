@@ -11,12 +11,14 @@ class LoginPage extends React.Component {
   render () {
     if ( this.props.reduxState && this.props.reduxState.auth ) {
       return (
-        <div>
-          <small className="page-title">Login</small>
+        <div className="text-center">
+          <div className="inline-block">
+            <div className="login-success">
+              <h2>Success!</h2>
 
-          <h2>Success!</h2>
-
-          <p>Welcome back <b>{this.props.reduxState.name}</b>!</p>
+              <p>Welcome back <b>{this.props.reduxState.name}</b>!</p>
+            </div>
+          </div>
         </div>
       );
     }

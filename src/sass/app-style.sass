@@ -16,6 +16,7 @@ $accentBgColorLight: #33691E
 
 body
   margin: 0
+  font-family: Lato, sans-serif
 
 .clearfix:after
 	visibility: hidden
@@ -62,7 +63,6 @@ body
   height: 390px
   overflow-y: auto
   padding: 15px
-  font-family: Lato, sans-serif
   zoom: 1.2
 
   h1, h2
@@ -102,6 +102,9 @@ body
 .text-center
   text-align: center
 
+.text-justify
+  text-align: justify
+
 .inline-block
   display: inline-block
 
@@ -130,7 +133,6 @@ body
     transition: border-color 2s
 
 .auth-form
-  font-family: Lato, sans-serif
   color: $primaryTextColor
 
   input
@@ -152,6 +154,26 @@ body
 .message
   background-color: $primaryBgColorLight
   padding: 10px
+
+.login-success
+  background-color: $primaryBgColorDark
+  padding: 4px 30px
+  border-radius: 3px
+  color: $primaryTextColor
+  max-width: 250px
+  zoom: 1.2
+
+  img
+    width: 96px
+    height: 96px
+    margin-top: 15px
+    
+  a
+    text-decoration: none
+    color: $linkColor
+
+    &:hover, &:focus
+      color: $linkHoverColor
 
 @keyframes pickme
   0%

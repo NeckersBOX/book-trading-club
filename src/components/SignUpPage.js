@@ -17,12 +17,14 @@ class SignUpPage extends React.Component {
   render () {
     if ( this.props.reduxState && this.props.reduxState.auth ) {
       return (
-        <div>
-          <small className="page-title">Sign Up</small>
+        <div className="text-center">
+          <div className="inline-block">
+            <div className="login-success">
+              <h2>No more!</h2>
 
-          <h2>No more!</h2>
-
-          <p>You are already authenticated in Book Trading Club!</p>
+              <p>You are already authenticated in Book Trading Club!</p>
+            </div>
+          </div>
         </div>
       );
     }
