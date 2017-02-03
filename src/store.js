@@ -20,6 +20,9 @@ export const reducer = (state, action) => {
     case 'LOGOUT':
       newState = Object.assign ({}, initState);
       break;
+    case 'UPDATE_INFO':
+      newState = Object.assign ({}, state, action.data);
+      break;
   }
 
   return newState;

@@ -7,12 +7,15 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
-import signupAPI from './api/signup';
-import loginAPI from './api/login';
-import authAPI, { authCheckAPI } from './api/auth';
-import authLoginAPI from './api/authLogin';
-import authLogoutAPI from './api/authLogout';
 import NotFoundPage from './components/NotFoundPage';
+
+import authAPI, { authCheckAPI } from './api/auth';
+import signupAPI                 from './api/signup';
+import loginAPI                  from './api/login';
+import authLoginAPI              from './api/authLogin';
+import authLogoutAPI             from './api/authLogout';
+import authChangeInfoAPI         from './api/authChangeInfo';
+import authChangePassAPI         from './api/authChangePass';
 
 const app = new Express ();
 
@@ -40,6 +43,8 @@ app.post ('/api/auth/:api', authAPI);
 app.post ('/api/auth/check', authCheckAPI);
 app.post ('/api/auth/login', authLoginAPI);
 app.post ('/api/auth/logout', authLogoutAPI);
+app.post ('/api/auth/change-info', authChangeInfoAPI);
+app.post ('/api/auth/change-pass', authChangePassAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },

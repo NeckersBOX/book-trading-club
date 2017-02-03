@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthRequest from './AuthRequest';
-import { postRequest } from '../common';
+import { postRequest, validatePassword } from '../common';
 
 class SettingsPage extends React.Component {
   constructor (props) {
@@ -11,8 +11,19 @@ class SettingsPage extends React.Component {
       userstate: '',
       old_password: '',
       new_password: '',
-      confirm_password: ''
+      confirm_password: '',
+      message_info: null,
+      message_pass: null
     };
+  }
+
+  componentDidMount () {
+    if ( this.props.reduxState ) {
+      this.setState ({
+        usercity: this.props.reduxState.city,
+        userstate: this.props.reduxState.state
+      });
+    }
   }
 
   render () {
@@ -23,6 +34,8 @@ class SettingsPage extends React.Component {
 
           <div className="text-center">
             <form className="inline-block form-settings">
+              {this.state.message_info ? <p>{this.state.message_info}</p> : ''}
+
               <label>
                 City
                 <input type="text" name="usercity" value={this.state.usercity}
@@ -34,12 +47,14 @@ class SettingsPage extends React.Component {
                   onChange={(e) => this.updateInfo ('userstate', e)} />
               </label>
 
-              <input type="submit" value="Update Info" />
+              <input type="submit" value="Update Info" onClick={this.changeInfo.bind (this)}/>
             </form>
           </div>
 
           <div className="text-center">
             <form className="inline-block form-settings">
+              {this.state.message_pass ? <p>{this.state.message_pass}</p> : ''}
+
               <label>
                 Old password
                 <input type="password" name="old_password" value={this.state.old_password}
@@ -56,7 +71,7 @@ class SettingsPage extends React.Component {
                   onChange={(e) => this.updateInfo ('confirm_password', e)} />
               </label>
 
-              <input type="submit" value="Change password" />
+              <input type="submit" value="Change password" onClick={this.changePassword.bind (this)}/>
             </form>
           </div>
         </div>
@@ -78,6 +93,50 @@ class SettingsPage extends React.Component {
       });
 
       this.props.router.push ('/login');
+    });
+  }
+
+  changeInfo (e) {
+    e.preventDefault ();
+
+    const userInfo = {
+      city: this.state.usercity.trim (),
+      state: this.state.userstate.trim ()
+    };
+
+    postRequest ('/api/auth/change-info', userInfo, res => {
+      if ( res.error )
+        return this.setState ({ message_info: res.error });
+
+      this.setState ({
+        usercity: userInfo.city,
+        userstate: userInfo.state,
+        message_info: 'City and state changed!'
+      });
+
+      this.props.dispatch ({
+        type: 'UPDATE_INFO',
+        data: userInfo
+      });
+    });
+  }
+
+  changePassword (e) {
+    e.preventDefault ();
+
+    let result = validatePassword (this.state.new_password, this.state.confirm_password);
+
+    if ( result )
+      return this.setState ({ message_pass: result });
+
+    postRequest ('/api/auth/change-pass', {
+      old_password: this.state.old_password,
+      new_password: this.state.new_password
+    }, res => {
+      if ( res.error )
+        return this.setState ({ message_pass: res.error });
+
+      this.setState ({ message_pass: 'Password changed!' });
     });
   }
 }

@@ -25788,16 +25788,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var validatePassword = exports.validatePassword = function validatePassword(password, confirm) {
+	  if (password.length < 8) return 'Password length have to be more than 8 chars.';
+
+	  if (password != confirm) return 'Password confirm is different from the first one';
+
+	  return false;
+	};
+
 	var validateSignup = exports.validateSignup = function validateSignup(data) {
 	  if (data.username.trim().length < 6) return 'Username length have to be more than 6 chars.';
 
 	  if (!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(data.usermail)) return 'Email not valid. Please try again.';
 
-	  if (data.password.length < 8) return 'Password length have to be more than 8 chars.';
-
-	  if (data.password != data.password_confirm) return 'Password confirm is different from the first one';
-
-	  return false;
+	  return validatePassword(data.password, data.password_confirm);
 	};
 
 	var validateLogin = exports.validateLogin = function validateLogin(data) {
@@ -26448,12 +26452,24 @@
 	      userstate: '',
 	      old_password: '',
 	      new_password: '',
-	      confirm_password: ''
+	      confirm_password: '',
+	      message_info: null,
+	      message_pass: null
 	    };
 	    return _this;
 	  }
 
 	  _createClass(SettingsPage, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.props.reduxState) {
+	        this.setState({
+	          usercity: this.props.reduxState.city,
+	          userstate: this.props.reduxState.state
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -26475,6 +26491,11 @@
 	            _react2.default.createElement(
 	              'form',
 	              { className: 'inline-block form-settings' },
+	              this.state.message_info ? _react2.default.createElement(
+	                'p',
+	                null,
+	                this.state.message_info
+	              ) : '',
 	              _react2.default.createElement(
 	                'label',
 	                null,
@@ -26493,7 +26514,7 @@
 	                    return _this2.updateInfo('userstate', e);
 	                  } })
 	              ),
-	              _react2.default.createElement('input', { type: 'submit', value: 'Update Info' })
+	              _react2.default.createElement('input', { type: 'submit', value: 'Update Info', onClick: this.changeInfo.bind(this) })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -26502,6 +26523,11 @@
 	            _react2.default.createElement(
 	              'form',
 	              { className: 'inline-block form-settings' },
+	              this.state.message_pass ? _react2.default.createElement(
+	                'p',
+	                null,
+	                this.state.message_pass
+	              ) : '',
 	              _react2.default.createElement(
 	                'label',
 	                null,
@@ -26529,7 +26555,7 @@
 	                    return _this2.updateInfo('confirm_password', e);
 	                  } })
 	              ),
-	              _react2.default.createElement('input', { type: 'submit', value: 'Change password' })
+	              _react2.default.createElement('input', { type: 'submit', value: 'Change password', onClick: this.changePassword.bind(this) })
 	            )
 	          )
 	        )
@@ -26553,6 +26579,53 @@
 	        });
 
 	        _this3.props.router.push('/login');
+	      });
+	    }
+	  }, {
+	    key: 'changeInfo',
+	    value: function changeInfo(e) {
+	      var _this4 = this;
+
+	      e.preventDefault();
+
+	      var userInfo = {
+	        city: this.state.usercity.trim(),
+	        state: this.state.userstate.trim()
+	      };
+
+	      (0, _common.postRequest)('/api/auth/change-info', userInfo, function (res) {
+	        if (res.error) return _this4.setState({ message_info: res.error });
+
+	        _this4.setState({
+	          usercity: userInfo.city,
+	          userstate: userInfo.state,
+	          message_info: 'City and state changed!'
+	        });
+
+	        _this4.props.dispatch({
+	          type: 'UPDATE_INFO',
+	          data: userInfo
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'changePassword',
+	    value: function changePassword(e) {
+	      var _this5 = this;
+
+	      e.preventDefault();
+
+	      var result = (0, _common.validatePassword)(this.state.new_password, this.state.confirm_password);
+
+	      if (result) return this.setState({ message_pass: result });
+
+	      (0, _common.postRequest)('/api/auth/change-pass', {
+	        old_password: this.state.old_password,
+	        new_password: this.state.new_password
+	      }, function (res) {
+	        if (res.error) return _this5.setState({ message_pass: res.error });
+
+	        _this5.setState({ message_pass: 'Password changed!' });
 	      });
 	    }
 	  }]);
@@ -28932,6 +29005,9 @@
 	      break;
 	    case 'LOGOUT':
 	      newState = Object.assign({}, initState);
+	      break;
+	    case 'UPDATE_INFO':
+	      newState = Object.assign({}, state, action.data);
 	      break;
 	  }
 
