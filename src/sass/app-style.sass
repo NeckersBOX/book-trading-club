@@ -31,10 +31,10 @@ body
 *:first-child+html .clearfix
   zoom: 1
 
-.unauth-menu
+.main-menu
   list-style: none
   padding: 0
-  margin: 1em
+  margin: 1em 0
 
   li
     display: inline-block
@@ -120,6 +120,10 @@ body
   margin-left: 300px
   cursor: move
   zoom: 1.2
+  animation-name: pickme
+  animation-duration: 3s
+  animation-iteration-count: infinite
+  animation-direction: alternate
 
   &:hover, &:focus
     border-color: $accentBgColor $accentBgColor transparent $accentBgColor
@@ -148,6 +152,26 @@ body
 .message
   background-color: $primaryBgColorLight
   padding: 10px
+
+@keyframes pickme
+  0%
+    height: 17px
+  40%
+    height: 17px
+  45%
+    height: 10px
+  50%
+    height: 20px
+  55%
+    height: 8px
+  60%
+    height: 28px
+  65%
+    height: 12px
+  70%
+    height: 17px
+  100%
+    height: 17px
 
 @media screen and (max-width: 850px)
   .left-side, .right-side, .bookmark

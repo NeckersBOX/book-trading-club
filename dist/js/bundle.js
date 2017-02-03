@@ -25595,6 +25595,82 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var UnauthMenu = function UnauthMenu() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'text-center' },
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'main-menu' },
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          'Home'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/signup' },
+	          'Sign Up'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/login' },
+	          'Login'
+	        )
+	      )
+	    )
+	  );
+	};
+
+	var AuthMenu = function AuthMenu() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'text-center' },
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'main-menu' },
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          'Home'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/books' },
+	          'Books'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/settings' },
+	          'Settings'
+	        )
+	      )
+	    )
+	  );
+	};
+
 	var Layout = function (_React$Component) {
 	  _inherits(Layout, _React$Component);
 
@@ -25610,41 +25686,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'text-center' },
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'unauth-menu' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/' },
-	                'Home'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/signup' },
-	                'Sign Up'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login' },
-	                'Login'
-	              )
-	            )
-	          )
-	        ),
+	        this.props.reduxState && this.props.reduxState.auth ? _react2.default.createElement(AuthMenu, null) : _react2.default.createElement(UnauthMenu, null),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'text-center' },
