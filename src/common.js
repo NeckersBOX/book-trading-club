@@ -37,7 +37,12 @@ export const postRequest = (url, data, callback) => {
     if ( request.status != 200 )
       return callback ({ error: request.status + ' ' + request.statusText });
 
-    callback (JSON.parse (request.responseText));
+    let response = JSON.parse (request.responseText);
+
+    if ( !response.hasOwnProperty ('error') )
+      response = Object.assign ({}, response, { error: false });
+      
+    callback (response);
   };
 
   request.onerror = () => console.error ('POST ' + url + '. Request failed.');
