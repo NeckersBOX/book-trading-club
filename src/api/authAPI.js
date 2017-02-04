@@ -3,7 +3,8 @@ const authAPIList = [
   'login',
   'logout',
   'change-info',
-  'change-pass'
+  'change-pass',
+  'search-book'
 ];
 
 export default authAPIList;
