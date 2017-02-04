@@ -4,7 +4,8 @@ const authAPIList = [
   'logout',
   'change-info',
   'change-pass',
-  'search-book'
+  'add-book',
+  'remove-book'
 ];
 
 export default authAPIList;

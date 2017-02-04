@@ -12,6 +12,7 @@ export const reducer = (state, action) => {
     return initState;
 
   let newState = state;
+  let newBooks = null;
 
   switch (action.type) {
     case 'LOGIN':
@@ -22,6 +23,23 @@ export const reducer = (state, action) => {
       break;
     case 'UPDATE_INFO':
       newState = Object.assign ({}, state, action.data);
+      break;
+    case 'ADD_BOOK':
+      newBooks = state.books.slice (0);
+      newBooks.push (action.data);
+
+      newState = Object.assign ({}, state, { books: newBooks });
+      break;
+    case 'REMOVE_BOOK':
+      newBooks = [];
+      for ( let id in state.books ) {
+        if ( state.books[id].date == action.data )
+          continue;
+
+        newBooks.push (state.books[id]);
+      }
+
+      newState = Object.assign ({}, state, { books: newBooks });
       break;
   }
 

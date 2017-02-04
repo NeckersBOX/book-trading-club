@@ -237,6 +237,74 @@ button.logout
     &:hover, &:focus
       background-color: $primaryBgColorDark
 
+.my-books
+  width: 90%
+  background-color: $primaryBgColorDark
+  padding: 12px
+  border-radius: 4px
+
+  .header
+    h2
+      float: left
+      color: $primaryTextColor
+      margin-bottom: 0
+
+    form
+      float: right
+      margin: 0
+
+      input[type="text"]
+        background-color: $primaryBgColor
+        border-width: 0
+        font-size: 16px
+        font-family: Lato, sans-serif
+        border-radius: 4px 0 0 4px
+        padding: 8px
+        margin-top: 0.83em
+
+      input[type="submit"]
+        background-color: $accentBgColor
+        color: $primaryTextColor
+        border-width: 0
+        border-radius: 0 4px 4px 0
+        font-family: Lato, sans-serif
+        padding: 8px
+        font-size: 16px
+        text-transform: uppercase
+        cursor: pointer
+
+        &:hover, &:focus
+          background-color: $accentBgColorLight
+
+  hr
+    border: 1px solid $primaryBgColor
+    border-bottom-width: 0
+
+  .list
+    display: flex
+    flex-direction: row
+    align-items: flex-end
+    overflow-x: auto
+    background-color: white
+    padding: 10px
+    border-radius: 4px
+
+.book-info
+  padding-right: 8px
+
+  button
+    width: 100%
+    background-color: #b71c1c
+    border-width: 0
+    border-radius: 4px
+    font-family: Lato, sans-serif
+    color: white
+    font-size: 14px
+    text-transform: uppercase
+    padding: 8px 0
+    margin-top: 8px
+    cursor: pointer
+
 @keyframes pickme
   0%
     height: 17px
