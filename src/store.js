@@ -1,9 +1,10 @@
 const initState = {
   auth: false,
-  name:  undefined,
-  email: undefined,
-  city:  undefined,
-  state: undefined,
+  fullname: undefined,
+  name:     undefined,
+  email:    undefined,
+  city:     undefined,
+  state:    undefined,
   books: []
 };
 

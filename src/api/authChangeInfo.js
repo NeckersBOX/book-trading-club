@@ -6,6 +6,7 @@ const authChangeInfoAPI = (req, res) => {
     const db = yield MongoClient.connect (process.env.mongoURI);
     let result = yield db.collection ('btc_users').findOneAndUpdate (req.user, {
       $set: {
+        fullname: req.body.fullname.trim (),
         city: req.body.city.trim (),
         state: req.body.state.trim ()
       }

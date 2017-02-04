@@ -26457,6 +26457,7 @@
 	    var _this = _possibleConstructorReturn(this, (SettingsPage.__proto__ || Object.getPrototypeOf(SettingsPage)).call(this, props));
 
 	    _this.state = {
+	      userfullname: '',
 	      usercity: '',
 	      userstate: '',
 	      old_password: '',
@@ -26473,6 +26474,7 @@
 	    value: function componentDidMount() {
 	      if (this.props.reduxState) {
 	        this.setState({
+	          userfullname: this.props.reduxState.fullname,
 	          usercity: this.props.reduxState.city,
 	          userstate: this.props.reduxState.state
 	        });
@@ -26505,6 +26507,15 @@
 	                null,
 	                this.state.message_info
 	              ) : '',
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Full Name',
+	                _react2.default.createElement('input', { type: 'text', name: 'fullname', value: this.state.userfullname,
+	                  onChange: function onChange(e) {
+	                    return _this2.updateInfo('userfullname', e);
+	                  } })
+	              ),
 	              _react2.default.createElement(
 	                'label',
 	                null,
@@ -26598,6 +26609,7 @@
 	      e.preventDefault();
 
 	      var userInfo = {
+	        fullname: this.state.userfullname.trim(),
 	        city: this.state.usercity.trim(),
 	        state: this.state.userstate.trim()
 	      };
@@ -26606,9 +26618,10 @@
 	        if (res.error) return _this4.setState({ message_info: res.error });
 
 	        _this4.setState({
+	          userfullname: userInfo.fullname,
 	          usercity: userInfo.city,
 	          userstate: userInfo.state,
-	          message_info: 'City and state changed!'
+	          message_info: 'Personal info changed!'
 	        });
 
 	        _this4.props.dispatch({
@@ -29224,6 +29237,7 @@
 	});
 	var initState = {
 	  auth: false,
+	  fullname: undefined,
 	  name: undefined,
 	  email: undefined,
 	  city: undefined,

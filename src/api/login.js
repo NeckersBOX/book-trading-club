@@ -37,7 +37,7 @@ const loginAPI = (req, res) => {
 
     const books = yield db.collection ('btc_books').find ({ user: doc.name }).toArray ();
     const session = yield bcrypt.hash (Date.now () + doc.email, 10);
-    
+
     btc_users.findOneAndUpdate (doc, { $set: { session } });
 
     req.session.hash = session;
@@ -46,6 +46,7 @@ const loginAPI = (req, res) => {
     res.end (JSON.stringify ({
       success: true,
       userInfo: {
+        fullname: doc.fullname,
         name: doc.signup_name,
         email: doc.email,
         city: doc.city,

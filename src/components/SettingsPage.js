@@ -7,6 +7,7 @@ class SettingsPage extends React.Component {
     super (props);
 
     this.state = {
+      userfullname: '',
       usercity: '',
       userstate: '',
       old_password: '',
@@ -20,6 +21,7 @@ class SettingsPage extends React.Component {
   componentDidMount () {
     if ( this.props.reduxState ) {
       this.setState ({
+        userfullname: this.props.reduxState.fullname,
         usercity: this.props.reduxState.city,
         userstate: this.props.reduxState.state
       });
@@ -36,6 +38,11 @@ class SettingsPage extends React.Component {
             <form className="inline-block form-settings">
               {this.state.message_info ? <p>{this.state.message_info}</p> : ''}
 
+              <label>
+                Full Name
+                <input type="text" name="fullname" value={this.state.userfullname}
+                  onChange={(e) => this.updateInfo ('userfullname', e)} />
+              </label>
               <label>
                 City
                 <input type="text" name="usercity" value={this.state.usercity}
@@ -100,6 +107,7 @@ class SettingsPage extends React.Component {
     e.preventDefault ();
 
     const userInfo = {
+      fullname: this.state.userfullname.trim (),
       city: this.state.usercity.trim (),
       state: this.state.userstate.trim ()
     };
@@ -109,9 +117,10 @@ class SettingsPage extends React.Component {
         return this.setState ({ message_info: res.error });
 
       this.setState ({
+        userfullname: userInfo.fullname,
         usercity: userInfo.city,
         userstate: userInfo.state,
-        message_info: 'City and state changed!'
+        message_info: 'Personal info changed!'
       });
 
       this.props.dispatch ({

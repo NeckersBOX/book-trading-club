@@ -12,6 +12,7 @@ const authLoginAPI = (req, res) => {
       res.end (JSON.stringify ({
         success: true,
         userInfo: {
+          fullname: req.user.fullname,
           name: req.user.signup_name,
           email: req.user.email,
           city: req.user.city,
