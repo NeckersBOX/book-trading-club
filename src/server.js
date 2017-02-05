@@ -50,7 +50,7 @@ app.post ('/api/auth/change-info', authChangeInfoAPI);
 app.post ('/api/auth/change-pass', authChangePassAPI);
 app.post ('/api/auth/add-book', authAddBookAPI);
 app.post ('/api/auth/remove-book', authRemoveBookAPI);
-app.post ('/api/auth/all-book', authAllBookAPI);
+app.post ('/api/auth/all-books', authAllBookAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
