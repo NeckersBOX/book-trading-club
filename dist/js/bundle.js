@@ -26847,6 +26847,7 @@
 	      var _this3 = this;
 
 	      var userBooksList = [];
+
 	      if (this.props.reduxState) userBooksList = this.props.reduxState.books;
 
 	      return _react2.default.createElement(
@@ -26875,8 +26876,7 @@
 	          _AllBooks.AllBooks,
 	          null,
 	          this.state.books.length ? this.state.books.map(function (bookInfo, idx) {
-	            return _react2.default.createElement(_AllBooks.BookInfo, { key: idx, bookInfo: bookInfo,
-	              tradeBook: _this3.tradeBook.bind(_this3) });
+	            return _react2.default.createElement(_AllBooks.BookInfo, { key: idx, bookInfo: bookInfo, tradeBook: _this3.tradeBook.bind(_this3) });
 	          }) : _react2.default.createElement(
 	            'h3',
 	            null,
@@ -26907,8 +26907,11 @@
 	    value: function tradeBook(bookInfo, success_callback) {
 	      var _this5 = this;
 
-	      (0, _common.postRequest)('/api/auth/trade-book', { bookInfo: bookInfo }, function (res) {
-	        if (res.error && 0) {
+	      (0, _common.postRequest)('/api/auth/trade-book', {
+	        book_user: bookInfo.user,
+	        book_date: bookInfo.date
+	      }, function (res) {
+	        if (res.error) {
 	          _this5.setState({ message: res.error });
 	          return;
 	        }
@@ -27114,35 +27117,62 @@
 
 	    var _this = _possibleConstructorReturn(this, (BookInfo.__proto__ || Object.getPrototypeOf(BookInfo)).call(this, props));
 
-	    _this.state = { trade: props.bookInfo.trade_request ? true : false };
+	    _this.state = { trade: false, loading: true };
 	    return _this;
 	  }
 
 	  _createClass(BookInfo, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      (0, _common.postRequest)('/api/auth/check-trade', {
+	        book_user: this.props.bookInfo.user,
+	        book_date: this.props.bookInfo.date
+	      }, function (res) {
+	        if (res.error) {
+	          console.error(_this2.props.bookInfo.data + '@' + _this2.props.bookInfo.user + ': ' + res.error);
+	          return;
+	        }
+
+	        _this2.setState({ trade: res.status, loading: false });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var bookButton = _react2.default.createElement(
+	        'button',
+	        { className: 'disabled' },
+	        'Loading..'
+	      );
+
+	      if (!this.state.loading) {
+	        if (this.state.trade) bookButton = _react2.default.createElement(
+	          'button',
+	          { className: 'disabled' },
+	          'In trading'
+	        );else bookButton = _react2.default.createElement(
+	          'button',
+	          { onClick: this.tradeBookAction.bind(this) },
+	          'Trade'
+	        );
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'inline-block book-info' },
 	        _react2.default.createElement('img', { src: this.props.bookInfo.book.thumbnail, alt: (0, _common.ellipseTitle)(this.props.bookInfo.book.title) }),
-	        this.state.trade ? _react2.default.createElement(
-	          'button',
-	          { className: 'disabled' },
-	          'In trading'
-	        ) : _react2.default.createElement(
-	          'button',
-	          { onClick: this.tradeBookAction.bind(this) },
-	          'Trade'
-	        )
+	        bookButton
 	      );
 	    }
 	  }, {
 	    key: 'tradeBookAction',
 	    value: function tradeBookAction() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      this.props.tradeBook(this.props.bookInfo, function () {
-	        return _this2.setState({ trade: true });
+	        return _this3.setState({ trade: true });
 	      });
 	    }
 	  }]);

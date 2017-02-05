@@ -24,6 +24,7 @@ class BooksPage extends React.Component {
 
   render () {
     let userBooksList = [];
+
     if ( this.props.reduxState )
       userBooksList = this.props.reduxState.books;
 
@@ -39,9 +40,8 @@ class BooksPage extends React.Component {
         {this.state.message ? <p className="message">{this.state.message}</p> : ''}
         <AllBooks>
           {this.state.books.length ? this.state.books.map ((bookInfo, idx) =>
-            <BookInfo key={idx} bookInfo={bookInfo}
-              tradeBook={this.tradeBook.bind(this)} />) :
-            <h3>{this.state.loading ? 'Loading..' : 'No books yet!'}</h3>}
+            <BookInfo key={idx} bookInfo={bookInfo} tradeBook={this.tradeBook.bind(this)} />
+          ) : <h3>{this.state.loading ? 'Loading..' : 'No books yet!'}</h3>}
         </AllBooks>
       </AuthRequest>
     );
@@ -62,8 +62,11 @@ class BooksPage extends React.Component {
   }
 
   tradeBook (bookInfo, success_callback) {
-    postRequest ('/api/auth/trade-book', { bookInfo }, res => {
-      if ( res.error && 0 ) {
+    postRequest ('/api/auth/trade-book', {
+      book_user: bookInfo.user,
+      book_date: bookInfo.date
+    }, res => {
+      if ( res.error ) {
         this.setState ({ message: res.error });
         return;
       }

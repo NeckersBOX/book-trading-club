@@ -1,5 +1,5 @@
 import React from 'react';
-import { ellipseTitle } from '../common';
+import { ellipseTitle, postRequest } from '../common';
 
 export const AllBooks = (props) => (
   <div className="text-center">
@@ -17,15 +17,37 @@ export class BookInfo extends React.Component {
   constructor (props) {
     super (props);
 
-    this.state = { trade: props.bookInfo.trade_request ? true : false };
+    this.state = { trade: false, loading: true };
+  }
+
+  componentDidMount () {
+    postRequest ('/api/auth/check-trade', {
+      book_user: this.props.bookInfo.user,
+      book_date: this.props.bookInfo.date
+    }, res => {
+      if ( res.error ) {
+        console.error (this.props.bookInfo.data + '@' + this.props.bookInfo.user + ': ' + res.error);
+        return;
+      }
+
+      this.setState ({ trade: res.status, loading: false });
+    });
   }
 
   render () {
+    let bookButton = <button className="disabled">Loading..</button>;
+
+    if ( !this.state.loading ) {
+      if ( this.state.trade )
+        bookButton = <button className="disabled">In trading</button>;
+      else
+        bookButton = <button onClick={this.tradeBookAction.bind (this)}>Trade</button>;
+    }
+
     return (
       <div className="inline-block book-info">
         <img src={this.props.bookInfo.book.thumbnail} alt={ellipseTitle (this.props.bookInfo.book.title)} />
-        {this.state.trade ? <button className="disabled">In trading</button> :
-          <button onClick={this.tradeBookAction.bind (this)}>Trade</button>}
+        {bookButton}
       </div>
     )
   }
