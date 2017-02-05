@@ -1,18 +1,12 @@
 import React from 'react';
-import { postRequest } from '../common';
+import { postRequest, ellipseTitle } from '../common';
 
-export const UserBookInfo = (props) => {
-  let bookTitle = props.book.title;
-  if ( bookTitle.length > 64)
-    bookTitle = bookTitle.split ('').slice (0, 61).concat ('...').join ('');
-
-  return (
-    <div className="book-info">
-      <img src={props.book.thumbnail} alt={bookTitle} />
-      <button onClick={() => props.removeBook (props.book_id)}>Remove</button>
-    </div>
-  );
-};
+export const UserBookInfo = (props) => (
+  <div className="book-info">
+    <img src={props.book.thumbnail} alt={ellipseTitle (props.book.title)} />
+    <button onClick={() => props.removeBook (props.book_id)}>Remove</button>
+  </div>
+);
 
 export class UserBooks extends React.Component {
   constructor (props) {

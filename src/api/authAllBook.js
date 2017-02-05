@@ -9,7 +9,7 @@ const authAllBookAPI = (req, res) => {
 
     let books = yield db.collection ('btc_books').find ({
       user: { $ne: req.user.name }
-    });
+    }).toArray ();
 
     db.close ();
     res.end (JSON.stringify ({ books }));

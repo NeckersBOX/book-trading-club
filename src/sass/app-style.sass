@@ -292,6 +292,7 @@ button.logout
 
 .book-info
   padding-right: 8px
+  padding-bottom: 8px
 
   button
     width: 100%
@@ -308,6 +309,30 @@ button.logout
 
     &:hover, &:focus
       background-color: #c62828
+
+.all-books
+  width: 90%
+
+  h2
+    margin-bottom: 0
+    text-align: left
+    color: $primaryTextColorDark
+
+  hr
+    border-color: $primaryBgColorLight
+    border-width: 0
+    border-bottom-width: 1px
+
+  >.clearfix
+    text-align: left
+
+  button
+    width: 128px
+    display: block
+    background-color: $primaryBgColorDark
+
+    &:hover, &:focus
+      background-color: $primaryBgColorLight
 
 @keyframes pickme
   0%

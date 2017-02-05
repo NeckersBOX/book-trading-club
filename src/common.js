@@ -28,6 +28,13 @@ export const validateLogin = (data) => {
   return false;
 }
 
+export const ellipseTitle = (title) => {
+  if ( title.length < 64 )
+    return title;
+
+  return title.split ('').slice (0, 60).concat ('...').join ('');
+};
+
 export const postRequest = (url, data, callback) => {
   let request = new XMLHttpRequest ();
   request.open ('POST', url, true);
@@ -41,7 +48,7 @@ export const postRequest = (url, data, callback) => {
 
     if ( !response.hasOwnProperty ('error') )
       response = Object.assign ({}, response, { error: false });
-      
+
     callback (response);
   };
 
