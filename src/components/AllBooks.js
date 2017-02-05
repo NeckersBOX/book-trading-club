@@ -13,9 +13,24 @@ export const AllBooks = (props) => (
   </div>
 );
 
-export const BookInfo = (props) => (
-  <div className="inline-block book-info">
-    <img src={props.bookInfo.book.thumbnail} alt={ellipseTitle (props.bookInfo.book.title)} />
-    <button onClick={() => props.tradeBook (props.bookInfo)}>Trade</button>
-  </div>
-);
+export class BookInfo extends React.Component {
+  constructor (props) {
+    super (props);
+
+    this.state = { trade: props.bookInfo.trade_request ? true : false };
+  }
+
+  render () {
+    return (
+      <div className="inline-block book-info">
+        <img src={this.props.bookInfo.book.thumbnail} alt={ellipseTitle (this.props.bookInfo.book.title)} />
+        {this.state.trade ? <button className="disabled">In trading</button> :
+          <button onClick={this.tradeBookAction.bind (this)}>Trade</button>}
+      </div>
+    )
+  }
+
+  tradeBookAction () {
+    this.props.tradeBook (this.props.bookInfo, () => this.setState ({ trade: true }));
+  }
+};

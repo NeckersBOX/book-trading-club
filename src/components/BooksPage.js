@@ -18,7 +18,7 @@ class BooksPage extends React.Component {
         return;
       }
 
-      this.setState ({ books: res.books, loading: false });
+      this.setState ({ books: res.books, loading: false, message: null });
     });
   }
 
@@ -36,6 +36,7 @@ class BooksPage extends React.Component {
               book_id={bookInfo.date}
               removeBook={this.removeBook.bind (this)} />) : <h3>No books yet!</h3>}
         </UserBooks>
+        {this.state.message ? <p className="message">{this.state.message}</p> : ''}
         <AllBooks>
           {this.state.books.length ? this.state.books.map ((bookInfo, idx) =>
             <BookInfo key={idx} bookInfo={bookInfo}
@@ -49,7 +50,7 @@ class BooksPage extends React.Component {
   removeBook (book_id) {
     postRequest ('/api/auth/remove-book', { book_id }, res => {
       if ( res.error ) {
-        console.error (res.error);
+        this.setState ({ message: res.error });
         return;
       }
 
@@ -60,8 +61,16 @@ class BooksPage extends React.Component {
     });
   }
 
-  tradeBook (book_id) {
-    console.log (book_id);
+  tradeBook (bookInfo, success_callback) {
+    postRequest ('/api/auth/trade-book', { bookInfo }, res => {
+      if ( res.error && 0 ) {
+        this.setState ({ message: res.error });
+        return;
+      }
+
+      this.setState ({ message: null });
+      success_callback ();
+    });
   }
 };
 

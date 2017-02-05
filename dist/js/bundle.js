@@ -26699,7 +26699,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (AuthRequest.__proto__ || Object.getPrototypeOf(AuthRequest)).call(this, props));
 
-	    _this.state = { auth: _this.props.auth };
+	    _this.state = { auth: _this.props.auth, loading: true };
 	    return _this;
 	  }
 
@@ -26709,8 +26709,8 @@
 	      var _this2 = this;
 
 	      (0, _common.postRequest)('/api/auth/check', {}, function (res) {
-	        if (res.success) _this2.setState({ auth: true });else {
-	          _this2.setState({ auth: false });
+	        if (res.success) _this2.setState({ auth: true, loading: false });else {
+	          _this2.setState({ auth: false, loading: false });
 	          if (_this2.props.dispatch) {
 	            _this2.props.dispatch({
 	              type: 'LOGOUT'
@@ -26722,6 +26722,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (this.state.loading) {
+	        return _react2.default.createElement(
+	          'h3',
+	          { style: { color: 'white' } },
+	          'Check auth..'
+	        );
+	      }
+
 	      if (this.state.auth) {
 	        return _react2.default.createElement(
 	          'div',
@@ -26830,7 +26838,7 @@
 	          return;
 	        }
 
-	        _this2.setState({ books: res.books, loading: false });
+	        _this2.setState({ books: res.books, loading: false, message: null });
 	      });
 	    }
 	  }, {
@@ -26858,6 +26866,11 @@
 	            'No books yet!'
 	          )
 	        ),
+	        this.state.message ? _react2.default.createElement(
+	          'p',
+	          { className: 'message' },
+	          this.state.message
+	        ) : '',
 	        _react2.default.createElement(
 	          _AllBooks.AllBooks,
 	          null,
@@ -26879,7 +26892,7 @@
 
 	      (0, _common.postRequest)('/api/auth/remove-book', { book_id: book_id }, function (res) {
 	        if (res.error) {
-	          console.error(res.error);
+	          _this4.setState({ message: res.error });
 	          return;
 	        }
 
@@ -26891,8 +26904,18 @@
 	    }
 	  }, {
 	    key: 'tradeBook',
-	    value: function tradeBook(book_id) {
-	      console.log(book_id);
+	    value: function tradeBook(bookInfo, success_callback) {
+	      var _this5 = this;
+
+	      (0, _common.postRequest)('/api/auth/trade-book', { bookInfo: bookInfo }, function (res) {
+	        if (res.error && 0) {
+	          _this5.setState({ message: res.error });
+	          return;
+	        }
+
+	        _this5.setState({ message: null });
+	        success_callback();
+	      });
 	    }
 	  }]);
 
@@ -27045,6 +27068,8 @@
 	});
 	exports.BookInfo = exports.AllBooks = undefined;
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -27052,6 +27077,12 @@
 	var _common = __webpack_require__(223);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var AllBooks = exports.AllBooks = function AllBooks(props) {
 	  return _react2.default.createElement(
@@ -27075,20 +27106,51 @@
 	  );
 	};
 
-	var BookInfo = exports.BookInfo = function BookInfo(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'inline-block book-info' },
-	    _react2.default.createElement('img', { src: props.bookInfo.book.thumbnail, alt: (0, _common.ellipseTitle)(props.bookInfo.book.title) }),
-	    _react2.default.createElement(
-	      'button',
-	      { onClick: function onClick() {
-	          return props.tradeBook(props.bookInfo);
-	        } },
-	      'Trade'
-	    )
-	  );
-	};
+	var BookInfo = exports.BookInfo = function (_React$Component) {
+	  _inherits(BookInfo, _React$Component);
+
+	  function BookInfo(props) {
+	    _classCallCheck(this, BookInfo);
+
+	    var _this = _possibleConstructorReturn(this, (BookInfo.__proto__ || Object.getPrototypeOf(BookInfo)).call(this, props));
+
+	    _this.state = { trade: props.bookInfo.trade_request ? true : false };
+	    return _this;
+	  }
+
+	  _createClass(BookInfo, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'inline-block book-info' },
+	        _react2.default.createElement('img', { src: this.props.bookInfo.book.thumbnail, alt: (0, _common.ellipseTitle)(this.props.bookInfo.book.title) }),
+	        this.state.trade ? _react2.default.createElement(
+	          'button',
+	          { className: 'disabled' },
+	          'In trading'
+	        ) : _react2.default.createElement(
+	          'button',
+	          { onClick: this.tradeBookAction.bind(this) },
+	          'Trade'
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'tradeBookAction',
+	    value: function tradeBookAction() {
+	      var _this2 = this;
+
+	      this.props.tradeBook(this.props.bookInfo, function () {
+	        return _this2.setState({ trade: true });
+	      });
+	    }
+	  }]);
+
+	  return BookInfo;
+	}(_react2.default.Component);
+
+	;
 
 /***/ },
 /* 233 */

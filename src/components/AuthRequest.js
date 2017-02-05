@@ -6,15 +6,15 @@ class AuthRequest extends React.Component {
   constructor (props) {
     super (props);
 
-    this.state = { auth: this.props.auth };
+    this.state = { auth: this.props.auth, loading: true };
   }
 
   componentDidMount () {
     postRequest ('/api/auth/check', {}, res => {
       if ( res.success )
-        this.setState ({ auth: true });
+        this.setState ({ auth: true, loading: false });
       else {
-        this.setState ({ auth: false });
+        this.setState ({ auth: false, loading: false });
         if ( this.props.dispatch ) {
           this.props.dispatch ({
             type: 'LOGOUT'
@@ -25,6 +25,10 @@ class AuthRequest extends React.Component {
   }
 
   render () {
+    if ( this.state.loading ) {
+      return <h3 style={{ color: 'white' }}>Check auth..</h3>;
+    }
+
     if ( this.state.auth ) {
       return <div>{this.props.children}</div>;
     }
