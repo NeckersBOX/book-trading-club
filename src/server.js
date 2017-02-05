@@ -17,7 +17,8 @@ import authLogoutAPI             from './api/authLogout';
 import authChangeInfoAPI         from './api/authChangeInfo';
 import authChangePassAPI         from './api/authChangePass';
 import authAddBookAPI            from './api/authAddBook';
-import authRemoveBookAPI         from './api/authRemoveBookAPI';
+import authRemoveBookAPI         from './api/authRemoveBook';
+import authAllBookAPI            from './api/authAllBook';
 
 const app = new Express ();
 
@@ -49,6 +50,7 @@ app.post ('/api/auth/change-info', authChangeInfoAPI);
 app.post ('/api/auth/change-pass', authChangePassAPI);
 app.post ('/api/auth/add-book', authAddBookAPI);
 app.post ('/api/auth/remove-book', authRemoveBookAPI);
+app.post ('/api/auth/all-book', authAllBookAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
