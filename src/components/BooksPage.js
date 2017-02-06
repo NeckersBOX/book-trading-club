@@ -3,6 +3,7 @@ import AuthRequest from './AuthRequest';
 import { UserBooks, UserBookInfo } from './UserBooks';
 import { postRequest } from '../common';
 import { AllBooks, BookInfo } from './AllBooks';
+import UserTradeRequests from './UserTradeRequests';
 
 class BooksPage extends React.Component {
   constructor (props) {
@@ -30,6 +31,7 @@ class BooksPage extends React.Component {
 
     return (
       <AuthRequest auth={this.props.reduxState && this.props.reduxState.auth} dispatch={this.props.dispatch}>
+        <UserTradeRequests />
         <UserBooks dispatch={this.props.dispatch}>
           {userBooksList.length ? userBooksList.map ((bookInfo, idx) =>
             <UserBookInfo key={idx}

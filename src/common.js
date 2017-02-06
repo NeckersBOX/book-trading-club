@@ -87,7 +87,7 @@ export const dateFormat = timestamp => {
 
   string += results[0] || 'unknown';
   for ( let j = 1; j < results.length; j++ ) {
-    if ( j > 1 && j == results.length - 1 )
+    if ( j == results.length - 1 )
       string += ' and ';
     else
       string += ', ';
