@@ -10,6 +10,7 @@ const authAPIList = [
   'trade-book',
   'check-trade',
   'in-trade',
+  'out-trade',
   'remove-trade'
 ];
 

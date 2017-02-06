@@ -22,6 +22,7 @@ import authAllBookAPI            from './api/authAllBook';
 import authTradeBookAPI          from './api/authTradeBook';
 import authCheckTradeAPI         from './api/authCheckTrade';
 import authInTradeAPI            from './api/authInTrade';
+import authOutTradeAPI           from './api/authOutTrade';
 import authRemoveTradeAPI        from './api/authRemoveTrade';
 
 const app = new Express ();
@@ -58,6 +59,7 @@ app.post ('/api/auth/all-books', authAllBookAPI);
 app.post ('/api/auth/trade-book', authTradeBookAPI);
 app.post ('/api/auth/check-trade', authCheckTradeAPI);
 app.post ('/api/auth/in-trade', authInTradeAPI);
+app.post ('/api/auth/out-trade', authOutTradeAPI);
 app.post ('/api/auth/remove-trade', authRemoveTradeAPI);
 
 app.get ('*', (req, res) => {

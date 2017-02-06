@@ -4,12 +4,13 @@ import { UserBooks, UserBookInfo } from './UserBooks';
 import { postRequest } from '../common';
 import { AllBooks, BookInfo } from './AllBooks';
 import UserTradeRequests from './UserTradeRequests';
+import TradeRequests from './TradeRequests';
 
 class BooksPage extends React.Component {
   constructor (props) {
     super (props);
 
-    this.state = { books: [], loading: true };
+    this.state = { books: [], loading: true, expandTrades: { in: false, out: false } };
   }
 
   componentDidMount () {
@@ -31,7 +32,11 @@ class BooksPage extends React.Component {
 
     return (
       <AuthRequest auth={this.props.reduxState && this.props.reduxState.auth} dispatch={this.props.dispatch}>
-        <UserTradeRequests />
+        <div className={"books-trades" + ((this.state.expandTrades.in || this.state.expandTrades.out) ? ' expanded' : '')}>
+          <UserTradeRequests expand={state => this.expandTrades (state, 'in')}/>
+          <TradeRequests expand={state => this.expandTrades (state, 'out')} />
+        </div>
+
         <UserBooks dispatch={this.props.dispatch}>
           {userBooksList.length ? userBooksList.map ((bookInfo, idx) =>
             <UserBookInfo key={idx}
@@ -75,6 +80,12 @@ class BooksPage extends React.Component {
 
       this.setState ({ message: null });
       success_callback ();
+    });
+  }
+
+  expandTrades (state, type) {
+    this.setState ({
+      expandTrades: Object.assign ({}, this.state.expandTrades, { [type]: state })
     });
   }
 };

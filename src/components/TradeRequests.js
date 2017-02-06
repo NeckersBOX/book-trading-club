@@ -38,7 +38,7 @@ class ShowRequest extends React.Component {
   }
 };
 
-class UserTradeRequests extends React.Component {
+class TradeRequests extends React.Component {
   constructor (props) {
     super (props);
 
@@ -46,7 +46,7 @@ class UserTradeRequests extends React.Component {
   }
 
   componentDidMount () {
-    postRequest ('/api/auth/in-trade', {}, res => {
+    postRequest ('/api/auth/out-trade', {}, res => {
       if ( res.error ) {
         console.error (res.error);
         return;
@@ -62,7 +62,7 @@ class UserTradeRequests extends React.Component {
         <div className="text-center">
           <div className="inline-block">
             <button className="button-trade-requests" onClick={() => this.expandBox (true)}>
-              Your trade requests ( {this.state.loading ? 'Loading..' : this.state.requests.length } )
+              Trade requests for you ( {this.state.loading ? 'Loading..' : this.state.requests.length } )
             </button>
           </div>
         </div>
@@ -92,4 +92,4 @@ class UserTradeRequests extends React.Component {
   }
 };
 
-export default UserTradeRequests;
+export default TradeRequests;
