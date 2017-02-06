@@ -14,6 +14,9 @@ const authOutTradeAPI = (req, res) => {
 
     let results = [];
     for ( let id in outTrades ) {
+      if ( outTrades[id].status == 'refused' )
+        continue;
+        
       let book = yield btc_books.findOne ({
         date: +outTrades[id].book,
         user: outTrades[id].to_user

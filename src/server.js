@@ -24,6 +24,8 @@ import authCheckTradeAPI         from './api/authCheckTrade';
 import authInTradeAPI            from './api/authInTrade';
 import authOutTradeAPI           from './api/authOutTrade';
 import authRemoveTradeAPI        from './api/authRemoveTrade';
+import authRefuseTradeAPI        from './api/authRefuseTrade';
+import authAcceptTradeAPI        from './api/authAcceptTrade';
 
 const app = new Express ();
 
@@ -61,6 +63,8 @@ app.post ('/api/auth/check-trade', authCheckTradeAPI);
 app.post ('/api/auth/in-trade', authInTradeAPI);
 app.post ('/api/auth/out-trade', authOutTradeAPI);
 app.post ('/api/auth/remove-trade', authRemoveTradeAPI);
+app.post ('/api/auth/refuse-trade', authRefuseTradeAPI);
+app.post ('/api/auth/accept-trade', authAcceptTradeAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },

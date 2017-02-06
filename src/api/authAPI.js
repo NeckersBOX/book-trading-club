@@ -11,7 +11,9 @@ const authAPIList = [
   'check-trade',
   'in-trade',
   'out-trade',
-  'remove-trade'
+  'remove-trade',
+  'refuse-trade',
+  'accept-trade'
 ];
 
 export default authAPIList;
