@@ -10,7 +10,12 @@ class BooksPage extends React.Component {
   constructor (props) {
     super (props);
 
-    this.state = { books: [], loading: true, expandTrades: { in: false, out: false } };
+    this.state = {
+      books: [],
+      loading: true,
+      expandTrades: { in: false, out: false },
+      user_books: (this.props.reduxState ? this.props.reduxState.books : [])
+    };
   }
 
   componentDidMount () {
@@ -22,14 +27,18 @@ class BooksPage extends React.Component {
 
       this.setState ({ books: res.books, loading: false, message: null });
     });
+
+    postRequest ('/api/auth/user-books', {}, res => {
+      if ( res.error ) {
+        console.error (res.error);
+        return;
+      }
+
+      this.setState ({ user_books: res.books });
+    });
   }
 
   render () {
-    let userBooksList = [];
-
-    if ( this.props.reduxState )
-      userBooksList = this.props.reduxState.books;
-
     return (
       <AuthRequest auth={this.props.reduxState && this.props.reduxState.auth} dispatch={this.props.dispatch}>
         <div className={"books-trades" + ((this.state.expandTrades.in || this.state.expandTrades.out) ? ' expanded' : '')}>
@@ -38,7 +47,7 @@ class BooksPage extends React.Component {
         </div>
 
         <UserBooks dispatch={this.props.dispatch}>
-          {userBooksList.length ? userBooksList.map ((bookInfo, idx) =>
+          {this.state.user_books.length ? this.state.user_books.map ((bookInfo, idx) =>
             <UserBookInfo key={idx}
               book={bookInfo.book}
               book_id={bookInfo.date}
@@ -65,6 +74,8 @@ class BooksPage extends React.Component {
         type: 'REMOVE_BOOK',
         data: book_id
       });
+
+      this.componentDidMount ();
     });
   }
 

@@ -94,7 +94,7 @@ class TradeRequests extends React.Component {
           <h3>Trade requests <span className="badge">{this.state.requests.length}</span></h3>
           <hr />
 
-          {this.state.loading ? 'Loading..' : !this.state.requests.length ? 'No requests yet!' :
+          {this.state.loading ? <h4>Loading..</h4> : !this.state.requests.length ? <h4>No requests yet!</h4> :
             this.state.requests.map ((request, id) => <ShowRequest request={request} key={id} />)}
         </div>
       </div>

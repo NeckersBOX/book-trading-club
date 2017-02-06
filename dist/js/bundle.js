@@ -26863,7 +26863,12 @@
 
 	    var _this = _possibleConstructorReturn(this, (BooksPage.__proto__ || Object.getPrototypeOf(BooksPage)).call(this, props));
 
-	    _this.state = { books: [], loading: true, expandTrades: { in: false, out: false } };
+	    _this.state = {
+	      books: [],
+	      loading: true,
+	      expandTrades: { in: false, out: false },
+	      user_books: _this.props.reduxState ? _this.props.reduxState.books : []
+	    };
 	    return _this;
 	  }
 
@@ -26880,15 +26885,20 @@
 
 	        _this2.setState({ books: res.books, loading: false, message: null });
 	      });
+
+	      (0, _common.postRequest)('/api/auth/user-books', {}, function (res) {
+	        if (res.error) {
+	          console.error(res.error);
+	          return;
+	        }
+
+	        _this2.setState({ user_books: res.books });
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
-
-	      var userBooksList = [];
-
-	      if (this.props.reduxState) userBooksList = this.props.reduxState.books;
 
 	      return _react2.default.createElement(
 	        _AuthRequest2.default,
@@ -26906,7 +26916,7 @@
 	        _react2.default.createElement(
 	          _UserBooks.UserBooks,
 	          { dispatch: this.props.dispatch },
-	          userBooksList.length ? userBooksList.map(function (bookInfo, idx) {
+	          this.state.user_books.length ? this.state.user_books.map(function (bookInfo, idx) {
 	            return _react2.default.createElement(_UserBooks.UserBookInfo, { key: idx,
 	              book: bookInfo.book,
 	              book_id: bookInfo.date,
@@ -26950,6 +26960,8 @@
 	          type: 'REMOVE_BOOK',
 	          data: book_id
 	        });
+
+	        _this4.componentDidMount();
 	      });
 	    }
 	  }, {
@@ -27408,7 +27420,15 @@
 	            )
 	          ),
 	          _react2.default.createElement('hr', null),
-	          this.state.loading ? 'Loading..' : !this.state.requests.length ? 'No requests yet!' : this.state.requests.map(function (request, id) {
+	          this.state.loading ? _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Loading..'
+	          ) : !this.state.requests.length ? _react2.default.createElement(
+	            'h4',
+	            null,
+	            'No requests yet!'
+	          ) : this.state.requests.map(function (request, id) {
 	            return _react2.default.createElement(ShowRequest, { request: request, key: id });
 	          })
 	        )
@@ -27611,7 +27631,15 @@
 	            )
 	          ),
 	          _react2.default.createElement('hr', null),
-	          this.state.loading ? 'Loading..' : !this.state.requests.length ? 'No requests yet!' : this.state.requests.map(function (request, id) {
+	          this.state.loading ? _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Loading..'
+	          ) : !this.state.requests.length ? _react2.default.createElement(
+	            'h4',
+	            null,
+	            'No requests yet!'
+	          ) : this.state.requests.map(function (request, id) {
 	            return _react2.default.createElement(ShowRequest, { request: request, key: id });
 	          })
 	        )

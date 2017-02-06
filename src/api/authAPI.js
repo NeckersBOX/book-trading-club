@@ -7,6 +7,7 @@ const authAPIList = [
   'add-book',
   'remove-book',
   'all-books',
+  'user-books',
   'trade-book',
   'check-trade',
   'in-trade',
