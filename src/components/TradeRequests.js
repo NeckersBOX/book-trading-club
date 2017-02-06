@@ -9,23 +9,38 @@ class ShowRequest extends React.Component {
   }
 
   render () {
-    if ( !this.state.show )
+    if ( !this.state.show || this.props.request.status == 'refused' )
       return <span></span>;
 
     return (
       <div>
         <img src={this.props.request.book.book.thumbnail} />
         <div style={{ display: 'block' }} className="text-center">
-          <button className="remove" onClick={this.removeTradeRequest.bind (this)}>Remove</button>
+          <button className="refuse-trade-button" onClick={this.refuseTradeRequest.bind (this)}>Refuse</button>
         </div>
-        <p className="status">Status <b className={this.props.request.status}>{this.props.request.status}</b></p>
+        <div style={{ display: 'block' }} className="text-center">
+          <button className="accept-trade-button" onClick={this.acceptTradeRequest.bind (this)}>Accept</button>
+        </div>
         <p className="date">{dateFormat (this.props.request.date)}</p>
       </div>
     );
   }
 
-  removeTradeRequest () {
-    postRequest ('/api/auth/remove-trade',
+  refuseTradeRequest () {
+    postRequest ('/api/auth/refuse-trade',
+      Object.assign ({}, this.props.request, { book: null }),
+      res => {
+        if ( res.error ) {
+          console.error (res.error);
+          return;
+        }
+
+        this.setState ({ show: false });
+    });
+  }
+
+  acceptTradeRequest () {
+    postRequest ('/api/auth/accept-trade',
       Object.assign ({}, this.props.request, { book: null }),
       res => {
         if ( res.error ) {

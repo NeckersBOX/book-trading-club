@@ -27470,7 +27470,7 @@
 	  _createClass(ShowRequest, [{
 	    key: 'render',
 	    value: function render() {
-	      if (!this.state.show) return _react2.default.createElement('span', null);
+	      if (!this.state.show || this.props.request.status == 'refused') return _react2.default.createElement('span', null);
 
 	      return _react2.default.createElement(
 	        'div',
@@ -27481,18 +27481,17 @@
 	          { style: { display: 'block' }, className: 'text-center' },
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'remove', onClick: this.removeTradeRequest.bind(this) },
-	            'Remove'
+	            { className: 'refuse-trade-button', onClick: this.refuseTradeRequest.bind(this) },
+	            'Refuse'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          'p',
-	          { className: 'status' },
-	          'Status ',
+	          'div',
+	          { style: { display: 'block' }, className: 'text-center' },
 	          _react2.default.createElement(
-	            'b',
-	            { className: this.props.request.status },
-	            this.props.request.status
+	            'button',
+	            { className: 'accept-trade-button', onClick: this.acceptTradeRequest.bind(this) },
+	            'Accept'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -27503,17 +27502,31 @@
 	      );
 	    }
 	  }, {
-	    key: 'removeTradeRequest',
-	    value: function removeTradeRequest() {
+	    key: 'refuseTradeRequest',
+	    value: function refuseTradeRequest() {
 	      var _this2 = this;
 
-	      (0, _common.postRequest)('/api/auth/remove-trade', Object.assign({}, this.props.request, { book: null }), function (res) {
+	      (0, _common.postRequest)('/api/auth/refuse-trade', Object.assign({}, this.props.request, { book: null }), function (res) {
 	        if (res.error) {
 	          console.error(res.error);
 	          return;
 	        }
 
 	        _this2.setState({ show: false });
+	      });
+	    }
+	  }, {
+	    key: 'acceptTradeRequest',
+	    value: function acceptTradeRequest() {
+	      var _this3 = this;
+
+	      (0, _common.postRequest)('/api/auth/accept-trade', Object.assign({}, this.props.request, { book: null }), function (res) {
+	        if (res.error) {
+	          console.error(res.error);
+	          return;
+	        }
+
+	        _this3.setState({ show: false });
 	      });
 	    }
 	  }]);
@@ -27529,16 +27542,16 @@
 	  function TradeRequests(props) {
 	    _classCallCheck(this, TradeRequests);
 
-	    var _this3 = _possibleConstructorReturn(this, (TradeRequests.__proto__ || Object.getPrototypeOf(TradeRequests)).call(this, props));
+	    var _this4 = _possibleConstructorReturn(this, (TradeRequests.__proto__ || Object.getPrototypeOf(TradeRequests)).call(this, props));
 
-	    _this3.state = { requests: [], loading: true, expand: false };
-	    return _this3;
+	    _this4.state = { requests: [], loading: true, expand: false };
+	    return _this4;
 	  }
 
 	  _createClass(TradeRequests, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      (0, _common.postRequest)('/api/auth/out-trade', {}, function (res) {
 	        if (res.error) {
@@ -27546,13 +27559,13 @@
 	          return;
 	        }
 
-	        _this4.setState({ requests: res.results, loading: false });
+	        _this5.setState({ requests: res.results, loading: false });
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this5 = this;
+	      var _this6 = this;
 
 	      if (!this.state.expand) {
 	        return _react2.default.createElement(
@@ -27564,7 +27577,7 @@
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'button-trade-requests', onClick: function onClick() {
-	                  return _this5.expandBox(true);
+	                  return _this6.expandBox(true);
 	                } },
 	              'Trade requests for you ( ',
 	              this.state.loading ? 'Loading..' : this.state.requests.length,
@@ -27583,7 +27596,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { className: 'button-trade-requests', onClick: function onClick() {
-	                return _this5.expandBox(false);
+	                return _this6.expandBox(false);
 	              } },
 	            'Close details'
 	          ),
