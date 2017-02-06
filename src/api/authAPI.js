@@ -8,7 +8,9 @@ const authAPIList = [
   'remove-book',
   'all-books',
   'trade-book',
-  'check-trade'
+  'check-trade',
+  'in-trade',
+  'remove-trade'
 ];
 
 export default authAPIList;

@@ -21,6 +21,8 @@ import authRemoveBookAPI         from './api/authRemoveBook';
 import authAllBookAPI            from './api/authAllBook';
 import authTradeBookAPI          from './api/authTradeBook';
 import authCheckTradeAPI         from './api/authCheckTrade';
+import authInTradeAPI            from './api/authInTrade';
+import authRemoveTradeAPI        from './api/authRemoveTrade';
 
 const app = new Express ();
 
@@ -55,6 +57,8 @@ app.post ('/api/auth/remove-book', authRemoveBookAPI);
 app.post ('/api/auth/all-books', authAllBookAPI);
 app.post ('/api/auth/trade-book', authTradeBookAPI);
 app.post ('/api/auth/check-trade', authCheckTradeAPI);
+app.post ('/api/auth/in-trade', authInTradeAPI);
+app.post ('/api/auth/remove-trade', authRemoveTradeAPI);
 
 app.get ('*', (req, res) => {
   match ({ routes, location: req.url },
