@@ -1,6 +1,6 @@
 {
   "name": "book-trading-club",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "freeCodeCamp Challenge",
   "main": "src/server.js",
   "scripts": {
