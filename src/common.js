@@ -63,3 +63,37 @@ export const postRequest = (url, data, callback) => {
 
   request.send (postData.join ('&'));
 };
+
+export const dateFormat = timestamp => {
+  let diff = Math.floor (Math.abs (Date.now () - timestamp) / 1000);
+  if ( diff > 4 * 24 * 60 * 60 ) {
+    let date = new Date (timestamp).toString ().split (' ');
+
+    return date.slice (0, date.length - 2).join (' ');
+  }
+
+  let values = [ [ 'day', 24 * 60 * 60 ], [ 'hour', 60 * 60 ], [ 'minute', 60 ], [ 'second', 1 ] ];
+  let results = [];
+  let string = '';
+
+  for ( let j = 0; j < values.length; j++ ) {
+    let res = Math.floor (diff / values[j][1]);
+    if ( res == 0 )
+      continue;
+
+    results.push (res + ' ' + values[j][0] + ((res != 1) ? 's' : ''));
+    diff -= res * values[j][1];
+  }
+
+  string += results[0] || 'unknown';
+  for ( let j = 1; j < results.length; j++ ) {
+    if ( j > 1 && j == results.length - 1 )
+      string += ' and ';
+    else
+      string += ', ';
+
+    string += results[j];
+  }
+
+  return string + ' ago';
+};
