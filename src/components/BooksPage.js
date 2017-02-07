@@ -14,28 +14,37 @@ class BooksPage extends React.Component {
       books: [],
       loading: true,
       expandTrades: { in: false, out: false },
-      user_books: (this.props.reduxState ? this.props.reduxState.books : [])
+      user_books: (this.props.reduxState ? this.props.reduxState.books : []),
+      interval: null
     };
   }
 
   componentDidMount () {
-    postRequest ('/api/auth/all-books', {}, res => {
-      if ( res.error ) {
-        console.error (res.error);
-        return;
-      }
+    let interval = setInterval (() => {
+      postRequest ('/api/auth/all-books', {}, res => {
+        if ( res.error ) {
+          console.error (res.error);
+          return;
+        }
 
-      this.setState ({ books: res.books, loading: false, message: null });
-    });
+        this.setState ({ books: res.books, loading: false, message: null });
+      });
 
-    postRequest ('/api/auth/user-books', {}, res => {
-      if ( res.error ) {
-        console.error (res.error);
-        return;
-      }
+      postRequest ('/api/auth/user-books', {}, res => {
+        if ( res.error ) {
+          console.error (res.error);
+          return;
+        }
 
-      this.setState ({ user_books: res.books });
-    });
+        this.setState ({ user_books: res.books });
+      });
+    }, 2000);
+
+    this.setState ({ interval });
+  }
+
+  componentWillUnmount () {
+    clearInterval (this.state.interval);
   }
 
   render () {

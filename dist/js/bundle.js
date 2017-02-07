@@ -26867,7 +26867,8 @@
 	      books: [],
 	      loading: true,
 	      expandTrades: { in: false, out: false },
-	      user_books: _this.props.reduxState ? _this.props.reduxState.books : []
+	      user_books: _this.props.reduxState ? _this.props.reduxState.books : [],
+	      interval: null
 	    };
 	    return _this;
 	  }
@@ -26877,23 +26878,32 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      (0, _common.postRequest)('/api/auth/all-books', {}, function (res) {
-	        if (res.error) {
-	          console.error(res.error);
-	          return;
-	        }
+	      var interval = setInterval(function () {
+	        (0, _common.postRequest)('/api/auth/all-books', {}, function (res) {
+	          if (res.error) {
+	            console.error(res.error);
+	            return;
+	          }
 
-	        _this2.setState({ books: res.books, loading: false, message: null });
-	      });
+	          _this2.setState({ books: res.books, loading: false, message: null });
+	        });
 
-	      (0, _common.postRequest)('/api/auth/user-books', {}, function (res) {
-	        if (res.error) {
-	          console.error(res.error);
-	          return;
-	        }
+	        (0, _common.postRequest)('/api/auth/user-books', {}, function (res) {
+	          if (res.error) {
+	            console.error(res.error);
+	            return;
+	          }
 
-	        _this2.setState({ user_books: res.books });
-	      });
+	          _this2.setState({ user_books: res.books });
+	        });
+	      }, 2000);
+
+	      this.setState({ interval: interval });
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval(this.state.interval);
 	    }
 	  }, {
 	    key: 'render',
